@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: daycare-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/daycare
+      - SPRING_DATASOURCE_USERNAME=daycareuser
+      - SPRING_DATASOURCE_PASSWORD=daycarepass
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: daycare-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:8080
+
+  db:
+    image: postgres:15-alpine
+    container_name: daycare-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=daycare
+      - POSTGRES_USER=daycareuser
+      - POSTGRES_PASSWORD=daycarepass
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data: 

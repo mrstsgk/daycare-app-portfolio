@@ -1,0 +1,42 @@
+time="2025-06-23T18:20:27+09:00" level=warning msg="/Users/morishitashigeki/Desktop/food-menu-portfolio/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+foodmenu-backend  | Error: Unable to access jarfile app.jar
+foodmenu-frontend  | 
+foodmenu-frontend  | > foodmenu-frontend@0.1.0 start
+foodmenu-frontend  | > react-scripts start
+foodmenu-frontend  | 
+foodmenu-frontend  | 
+foodmenu-frontend  | (node:25) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+foodmenu-frontend  | (Use `node --trace-deprecation ...` to show where the warning was created)
+foodmenu-frontend  | (node:25) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+foodmenu-frontend  | Starting the development server...
+foodmenu-frontend  | 
+foodmenu-frontend  | Compiled successfully!
+foodmenu-frontend  | 
+foodmenu-frontend  | You can now view foodmenu-frontend in the browser.
+foodmenu-frontend  | 
+foodmenu-frontend  |   Local:            http://localhost:3000
+foodmenu-frontend  |   On Your Network:  http://172.18.0.4:3000
+foodmenu-frontend  | 
+foodmenu-frontend  | Note that the development build is not optimized.
+foodmenu-frontend  | To create a production build, use npm run build.
+foodmenu-frontend  | 
+foodmenu-frontend  | webpack compiled successfully
+foodmenu-frontend  | Compiling...
+foodmenu-frontend  | No issues found.
+foodmenu-frontend  | Compiled successfully!
+foodmenu-frontend  | webpack compiled successfully
+foodmenu-frontend  | No issues found.
+foodmenu-db        | 
+foodmenu-db        | PostgreSQL Database directory appears to contain a database; Skipping initialization
+foodmenu-db        | 
+foodmenu-db        | 2025-06-23 09:19:34.486 UTC [1] LOG:  starting PostgreSQL 15.13 (Debian 15.13-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+foodmenu-db        | 2025-06-23 09:19:34.486 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+foodmenu-db        | 2025-06-23 09:19:34.486 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+foodmenu-db        | 2025-06-23 09:19:34.487 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+foodmenu-db        | 2025-06-23 09:19:34.488 UTC [28] LOG:  database system was shut down at 2025-06-23 09:15:17 UTC
+foodmenu-db        | 2025-06-23 09:19:34.494 UTC [1] LOG:  database system is ready to accept connections
+foodmenu-db        | 2025-06-23 09:19:44.488 UTC [39] FATAL:  database "fooduser" does not exist
+foodmenu-db        | 2025-06-23 09:19:54.556 UTC [46] FATAL:  database "fooduser" does not exist
+foodmenu-db        | 2025-06-23 09:20:04.612 UTC [55] FATAL:  database "fooduser" does not exist
+foodmenu-db        | 2025-06-23 09:20:14.683 UTC [63] FATAL:  database "fooduser" does not exist
+foodmenu-db        | 2025-06-23 09:20:24.753 UTC [71] FATAL:  database "fooduser" does not exist
