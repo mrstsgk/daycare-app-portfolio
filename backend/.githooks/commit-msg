@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# コミットメッセージの１行目に特定の接頭辞が含まれているかチェックするスクリプト
+readonly MSG=$(head -n 1 "$1")
+readonly PREFIX_REGEX="^((feat|fix|docs|style|refactor|perf|test|chore|ci|build):|Merge)"
+
+if [[ ! $MSG =~ $PREFIX_REGEX ]]; then
+  echo "Error: Commit message must start with 'feat:', 'fix:', 'docs:', 'style:', 'refactor:', 'perf:', 'test:', 'chore:', 'ci:', 'build:' or 'Merge'."
+  echo "Your commit message was: $MSG"
+  exit 1
+fi
