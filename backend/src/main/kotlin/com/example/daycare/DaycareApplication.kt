@@ -3,6 +3,7 @@ package com.example.daycare
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -22,4 +23,4 @@ class DaycareApplication {
 
 fun main(args: Array<String>) {
     runApplication<DaycareApplication>(*args)
-} 
+}
