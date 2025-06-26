@@ -4,8 +4,28 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     id("org.flywaydb.flyway") version "10.13.0"
-    id("nu.studer.jooq") version "9.0"
+    id("nu.studer.jooq") version "8.2"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
+}
+
+// buildscriptでFlywayプラグイン用の依存関係を明示的に設定
+buildscript {
+    dependencies {
+        classpath("org.flywaydb:flyway-database-postgresql:10.13.0")
+        classpath("org.postgresql:postgresql:42.7.3")
+    }
+}
+
+// Flyway設定を更新
+flyway {
+    url = "jdbc:postgresql://localhost:5432/daycare"
+    user = "daycareuser"
+    password = "daycarepass"
+    locations = arrayOf("filesystem:src/main/resources/db/migration")
+    baselineOnMigrate = true
+    baselineVersion = "0"
+    driver = "org.postgresql.Driver"
+    cleanDisabled = false
 }
 
 allprojects {

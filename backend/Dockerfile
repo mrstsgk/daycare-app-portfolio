@@ -1,7 +1,8 @@
 FROM amazoncorretto:21 as builder
 WORKDIR /app
 COPY . .
-RUN ./gradlew build --no-daemon
+# JOOQのgenerateJooqタスクを除外してビルド（生成済みファイルを使用）
+RUN ./gradlew build -x generateJooq --no-daemon
 RUN ls -lh build/libs/
 
 FROM amazoncorretto:21
