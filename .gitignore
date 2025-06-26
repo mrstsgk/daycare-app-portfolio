@@ -13,7 +13,6 @@ frontend/build/
 
 # Kotlin/Java
 .gradle/
-build/
 *.class
 *.jar
 *.war
