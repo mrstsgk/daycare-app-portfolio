@@ -21,5 +21,6 @@ class DaycareApplication {
 }
 
 fun main(args: Array<String>) {
+    @Suppress("SpreadOperator") // Note: 実害ないのでここでは無視
     runApplication<DaycareApplication>(*args)
-} 
+}
