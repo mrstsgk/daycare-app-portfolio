@@ -21,7 +21,7 @@ flyway {
     url = "jdbc:postgresql://localhost:5432/daycare"
     user = "daycareuser"
     password = "daycarepass"
-    locations = arrayOf("filesystem:src/main/resources/db/migration")
+    locations = arrayOf("filesystem:migration")
     baselineOnMigrate = true
     baselineVersion = "0"
     driver = "org.postgresql.Driver"
