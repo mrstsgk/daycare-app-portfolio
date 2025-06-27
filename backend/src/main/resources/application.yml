@@ -8,16 +8,10 @@ spring:
     sql-dialect: POSTGRES
   flyway:
     enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-    baseline-version: 0
+    locations: filesystem:migration
     validate-on-migrate: false
-    out-of-order: true
     clean-disabled: false
     clean-on-validation-error: false
-    # リピータブルマイグレーションを確実に実行するための設定
-    repeatable-sql-migration-prefix: R
     sql-migration-suffixes: .sql
-    ignore-migration-patterns: true
 server:
   port: 8080
