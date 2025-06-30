@@ -8,6 +8,64 @@
 - バックエンド: Spring Boot + Kotlin
 - データベース: PostgreSQL
 - コンテナ化: Docker
+- API仕様: OpenAPI 3.0
+- データベースアクセス: JOOQ
+
+## アーキテクチャ
+
+### バックエンド構成
+
+本プロジェクトは、クリーンアーキテクチャに基づいた多層構造を採用しています：
+
+```
+backend/
+├── domain/          # ドメイン層（ビジネスロジック）
+├── usecase/         # ユースケース層（アプリケーションロジック）
+├── infrastructure/  # インフラストラクチャ層（データベースアクセス）
+├── presentation/    # プレゼンテーション層（API エンドポイント）
+└── src/main/        # メインアプリケーション
+```
+
+### OpenAPI仕様
+
+- **仕様ファイル**: `backend/openapi/api.yaml`
+- **自動生成**: OpenAPI Generatorを使用してKotlinのモデルクラスを自動生成
+- **生成先**: `backend/presentation/src/main/kotlin/com/example/daycare/presentation/model/`
+- **API仕様確認**: http://localhost:8080/swagger-ui.html （アプリケーション起動後）
+
+#### OpenAPI生成コマンド
+
+```bash
+cd backend
+./gradlew openApiGenerate
+```
+
+### JOOQ（データベースアクセス）
+
+JOOQを使用してタイプセーフなデータベースアクセスを実現しています。
+
+- **生成設定**: `backend/infrastructure/build.gradle.kts`
+- **生成先**: `backend/infrastructure/build/generated-src/jooq/main/`
+- **データベーススキーマ**: Flywayマイグレーションから自動生成
+
+#### JOOQ生成コマンド
+
+```bash
+# データベースを起動
+docker-compose up -d db
+
+# JOOQクラス生成
+cd backend
+./gradlew generateJooq
+```
+
+**注意**: JOOQコード生成にはPostgreSQLデータベースが起動している必要があります。
+
+### データベースマイグレーション
+
+- **ツール**: Flyway
+- **マイグレーションファイル**: `backend/migration/`
+- **自動実行**: アプリケーション起動時に自動実行
 
 ## 機能
 
@@ -20,41 +78,41 @@
 
 以下のコマンドでアプリケーションを起動できます。
 
+```bash
+docker-compose up -d --build
 ```
-docker-compose up -d
+
+### 個別起動
+
+```bash
+# データベースのみ起動
+docker-compose up -d db
+
+# バックエンドのみ再ビルド
+docker-compose up -d --build backend
+
+# フロントエンドのみ再ビルド
+docker-compose up -d --build frontend
 ```
 
 - フロントエンド: http://localhost:3000
-- API: http://localhost:8080/api/students
+- バックエンドAPI: http://localhost:8080/api/students
+- OpenAPI仕様書: http://localhost:8080/swagger-ui.html
+- データベース: localhost:5432 (daycare/daycareuser/daycarepass)
 
-## コミットメッセージ規約
+## 開発時の注意事項
 
-本プロジェクトでは[Conventional Commits](https://www.conventionalcommits.org/)形式に従ったコミットメッセージを使用しています。以下の接頭辞を使い分けてください：
+### OpenAPI仕様の更新
 
-| 接頭辞 | 説明 | 使用例 |
-|--------|------|---------|
-| `feat:` | 新機能の追加 | `feat: 生徒検索機能を追加` |
-| `fix:` | 既存コードのバグ修正（動作の誤りを正す） | `fix: 生徒一覧が正しく表示されない問題を修正` |
-| `docs:` | ドキュメントの変更のみ | `docs: READMEにデプロイ手順を追加` |
-| `style:` | コードの意味に影響しない変更（フォーマット等） | `style: インデントの修正` |
-| `refactor:` | 機能追加やバグ修正を伴わない、コードの整理や構造改善 | `refactor: 生徒データ取得処理の重複コードを共通化` |
-| `perf:` | パフォーマンス改善のためのコード変更 | `perf: データ取得のクエリを最適化` |
-| `test:` | テストの追加や修正 | `test: 生徒登録機能のテストを追加` |
-| `chore:` | ビルドプロセスや補助ツールの変更 | `chore: パッケージの更新` |
-| `ci:` | CI設定ファイルの変更 | `ci: GitHub Actionsのワークフローを更新` |
-| `build:` | ビルドシステムや外部依存関係の変更 | `build: Gradleのバージョンを更新` |
+1. `backend/openapi/api.yaml`を編集
+2. OpenAPIモデルクラスを再生成: `./gradlew openApiGenerate`
+3. 必要に応じてコントローラーを更新
 
-### `fix:` vs `refactor:` の違い
+### データベーススキーマの変更
 
-- **`fix:`** - 正しく動作していなかった機能を修正する場合に使用します。例えば、データが表示されない、計算結果が間違っている、特定の条件でクラッシュするといった問題の修正がこれに当たります。
-  - 例: `fix: 登録フォームでエラー時にメッセージが表示されない問題を修正`
-
-- **`refactor:`** - 外部から見た機能は変わらないが、内部のコード構造を改善する場合に使用します。コードの可読性向上、保守性向上、重複コードの排除などがこれに当たります。
-  - 例: `refactor: 認証処理を個別のサービスクラスに分離`
-
-例えば、同じコードの変更でも：
-- 「APIが間違ったデータを返していた」問題を直す → `fix:`
-- 「動作は正しいが、コードが複雑で理解しにくい」状態を改善 → `refactor:`
+1. 新しいマイグレーションファイルを`backend/migration/`に作成
+2. JOOQクラスを再生成: `./gradlew generateJooq`
+3. リポジトリ実装を更新
 
 ---
-Colima推奨。IntelliJ IDEAで開発推奨。 
+Colima推奨。IntelliJ IDEAで開発推奨。
