@@ -6,6 +6,8 @@ plugins {
     id("org.flywaydb.flyway") version "10.13.0"
     id("nu.studer.jooq") version "8.2"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    // OpenAPI Generatorを最新版に更新
+    id("org.openapi.generator") version "7.8.0"
 }
 
 // buildscriptでFlywayプラグイン用の依存関係を明示的に設定
@@ -13,7 +15,45 @@ buildscript {
     dependencies {
         classpath("org.flywaydb:flyway-database-postgresql:10.13.0")
         classpath("org.postgresql:postgresql:42.7.3")
+        // SnakeYAMLのバージョンを最新版に更新
+        classpath("org.yaml:snakeyaml:2.2")
     }
+}
+
+// OpenAPI Generator設定 - モデルファイルのみ生成
+openApiGenerate {
+    generatorName.set("kotlin-spring")
+    inputSpec.set("$projectDir/openapi/api.yaml")
+    outputDir.set("$projectDir/temp-openapi-gen")
+    packageName.set("com.example.daycare.presentation")
+    modelPackage.set("com.example.daycare.presentation.model")
+    configOptions.put("useSpringBoot3", "true")
+    configOptions.put("modelOnly", "true")
+    configOptions.put("skipApiGeneration", "true")
+    configOptions.put("skipDocumentation", "true")
+    configOptions.put("interfaceOnly", "true")
+    configOptions.put("skipDefaultInterface", "true")
+}
+
+// 生成されたモデルファイルを適切な場所にコピー
+tasks.register("copyOpenApiModels") {
+    dependsOn("openApiGenerate")
+    doLast {
+        val srcDir = file("$projectDir/temp-openapi-gen/src/main/kotlin")
+        val destDir = file("$projectDir/presentation/src/main/kotlin")
+
+        if (srcDir.exists()) {
+            srcDir.copyRecursively(destDir, overwrite = true)
+        }
+
+        // 一時ディレクトリをクリーンアップ
+        delete("$projectDir/temp-openapi-gen")
+    }
+}
+
+// openApiGenerateの後に自動実行
+tasks.named("openApiGenerate") {
+    finalizedBy("copyOpenApiModels")
 }
 
 // Flyway設定を更新
@@ -79,6 +119,8 @@ dependencies {
     implementation("org.jooq:jooq:3.20.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.yaml:snakeyaml:2.0")
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

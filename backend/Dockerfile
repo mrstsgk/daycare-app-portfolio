@@ -1,7 +1,8 @@
 FROM amazoncorretto:21 as builder
 WORKDIR /app
 COPY . .
-# JOOQのgenerateJooqタスクを除外してビルド（生成済みファイルを使用）
+# OpenAPIファイルを先に生成してからビルド
+RUN ./gradlew openApiGenerate --no-daemon
 RUN ./gradlew build -x generateJooq --no-daemon
 RUN ls -lh build/libs/
 
