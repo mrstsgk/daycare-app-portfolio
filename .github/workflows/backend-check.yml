@@ -11,21 +11,6 @@ jobs:
     name: Backend Tests
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: daycare
-          POSTGRES_USER: daycareuser
-          POSTGRES_PASSWORD: daycarepass
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,8 +43,4 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test -x generateJooq --no-daemon
-        working-directory: backend
-
-      - name: Build application
-        run: ./gradlew build -x generateJooq --no-daemon
         working-directory: backend
