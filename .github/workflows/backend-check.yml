@@ -2,14 +2,29 @@ name: Backend CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [ main, develop ]
   pull_request:
-    branches: [main, develop]
+    branches: [ main, develop ]
 
 jobs:
   backend:
     name: Backend Tests
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: daycare
+          POSTGRES_USER: daycareuser
+          POSTGRES_PASSWORD: daycarepass
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - name: Checkout code
@@ -42,9 +57,9 @@ jobs:
         working-directory: backend
 
       - name: Run tests
-        run: ./gradlew test --no-daemon
+        run: ./gradlew test -x generateJooq --no-daemon
         working-directory: backend
 
       - name: Build application
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build -x generateJooq --no-daemon
         working-directory: backend
