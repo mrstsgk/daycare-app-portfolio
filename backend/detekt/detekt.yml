@@ -10,10 +10,11 @@ style:
     active: true
   ReturnCount:
     active: true
-    maxCount: 3
+    max: 3
   ThrowsCount:
     active: true
-    maxCount: 4
-  complexity:
-    TooManyFunctions:
-      ignorePrivate: true
+    max: 4
+complexity:
+  TooManyFunctions:
+    active: true
+    ignorePrivate: true
