@@ -133,6 +133,7 @@ tasks.withType<Test> {
 detekt {
     buildUponDefaultConfig = true
     allRules = false
+    config.setFrom(files("$projectDir/detekt/detekt.yml"))
 }
 
 kotlin {
