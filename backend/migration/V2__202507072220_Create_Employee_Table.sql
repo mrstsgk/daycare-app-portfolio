@@ -10,6 +10,8 @@ CREATE TABLE employee
     updated_at TIMESTAMP
 );
 
+CREATE INDEX employee_class_room_id_idx ON employee (class_room_id);
+
 -- テーブルとカラムにコメントを追加
 COMMENT ON TABLE employee IS '保育園の職員情報を管理するテーブル';
 COMMENT ON COLUMN employee.id IS '職員ID（主キー）';
