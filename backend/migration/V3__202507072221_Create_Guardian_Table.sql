@@ -1,5 +1,3 @@
--- 保護者テーブルの作成
--- 園児の保護者情報を管理するテーブル
 CREATE TABLE guardian
 (
     id            SERIAL PRIMARY KEY,

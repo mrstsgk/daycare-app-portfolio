@@ -1,4 +1,3 @@
--- 園児と保護者の関係を管理する中間テーブル
 CREATE TABLE student_guardian
 (
     id            SERIAL PRIMARY KEY,

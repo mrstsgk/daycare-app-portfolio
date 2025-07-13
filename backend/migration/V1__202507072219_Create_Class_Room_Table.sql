@@ -1,4 +1,3 @@
--- クラスを定義するテーブルを作成
 CREATE TABLE class_room
 (
     id         SERIAL PRIMARY KEY,
