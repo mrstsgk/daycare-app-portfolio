@@ -44,13 +44,14 @@
 
 ### Kotlin/Java
 
-- NullPointerExceptionを避けるためNull安全性を重視すること
+- NullPointerExceptionを避けるためnull安全性を重視すること
 - 適切な例外処理を実装すること
 - コードの複雑度を下げるため、メソッドは単一責任にすること
 
 ### TypeScript/React
 
 - 型安全性を重視し、any型の使用は避けること
+    - 代わりに、unknown型、適切なユニオン型、またはジェネリック制約を使用することを検討してください。
 - useEffectの依存配列を適切に設定すること
 - コンポーネントの責務を明確にすること
 
