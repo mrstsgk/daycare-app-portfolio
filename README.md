@@ -118,6 +118,30 @@ docker-compose up -d --build frontend
 
 ## コード品質（バックエンド）
 
+### Detekt
+
+Detektは、Kotlinコードの静的解析ツールです。コードの品質を保ち、潜在的なバグや問題を早期に発見するために使用されています。
+
+#### 設定内容
+
+- **ルールセット**: Detekt推奨ルール
+- **設定ファイル**: `backend/detekt/detekt.yml`
+- **CI統合**: GitHub Actionsで自動実行
+
+#### 使用方法
+
+```bash
+# ローカルでの静的解析実行
+cd backend
+./gradlew detekt
+
+# テスト実行
+./gradlew test
+
+# ビルド実行
+./gradlew build
+```
+
 ### Kotlin Lint
 
 Kotlin Lintは、Kotlinコードの静的解析ツールです。コードの品質を保ち、潜在的なバグや問題を早期に発見するために使用されています。
@@ -176,7 +200,7 @@ npm run lint:format
 
 ### 統合ワークフロー
 
-開発時は以下のコマンドを実行してコード品質を保ちます：
+#### フロントエンド開発時
 
 ```bash
 # 開発前のチェック
@@ -185,6 +209,47 @@ npm run lint:format
 # コミット前のチェック
 npm run lint && npm run format:check
 ```
+
+#### バックエンド開発時
+
+```bash
+# ローカルでの静的解析
+cd backend
+./gradlew detekt
+
+# テスト実行
+./gradlew test
+
+# ビルド確認
+./gradlew build
+
+# コミット前のチェック
+./gradlew detekt && ./gradlew test
+```
+
+### CI/CD
+
+GitHub Actionsを使用してCI/CDパイプラインを構築しています。
+
+#### バックエンドCI
+
+- **トリガー**: `.kt`, `.java`, `.gradle`, `.gradle.kts`, `.yml`, `.yaml`, `.properties`, `.sql`ファイルの変更
+- **実行内容**:
+    - Detekt静的解析 (`./gradlew detekt`)
+    - テスト実行 (`./gradlew test`)
+    - Gradle Wrapper検証
+    - JDK 21環境でのビルドテスト
+- **実行環境**: Ubuntu Latest, JDK 21, Gradle Wrapper
+
+#### フロントエンドCI
+
+- **トリガー**: `.js`, `.jsx`, `.ts`, `.tsx`, `.json`, `.scss`, `.css`ファイルの変更
+- **実行内容**: ESLintチェック、Prettierフォーマットチェック、ビルドテスト
+
+#### ワークフローファイル
+
+- `.github/workflows/frontend-check.yml` - フロントエンドコード品質チェック
+- `.github/workflows/backend-check.yml` - バックエンドコード品質チェック
 
 ---
 
