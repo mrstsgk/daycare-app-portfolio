@@ -10,6 +10,8 @@
 - コンテナ化: Docker
 - API仕様: OpenAPI 3.0
 - データベースアクセス: JOOQ
+- Colima
+- IntelliJ IDEAで開発推奨
 
 ## アーキテクチャ
 
@@ -114,8 +116,77 @@ docker-compose up -d --build frontend
 2. JOOQクラスを再生成: `./gradlew generateJooq`
 3. リポジトリ実装を更新
 
+## コード品質（バックエンド）
+
+### Kotlin Lint
+
+Kotlin Lintは、Kotlinコードの静的解析ツールです。コードの品質を保ち、潜在的なバグや問題を早期に発見するために使用されています。
+
+#### 設定内容
+
+- **ルールセット**: Kotlin Lint推奨ルール
+- IntelliJ IDEAのKotlin Lintプラグインを使用
+
+## コード品質（フロントエンド）
+
+### ESLint
+
+ESLintは、JavaScript/TypeScriptコードの静的解析ツールです。コードの品質を保ち、潜在的なバグや問題を早期に発見するために使用されています。
+
+#### 設定内容
+
+- **環境**: ブラウザ、Node.js、ES2021
+- **拡張ルール**: ESLint推奨、React、React Hooks、TypeScript、Prettier
+- **カスタムルール**: React 17以降の設定、TypeScript型チェック
+
+#### 使用方法
+
+```bash
+# コードチェック
+npm run lint
+
+# 自動修正
+npm run lint:fix
+```
+
+### Prettier
+
+Prettierは、コードフォーマッターです。一貫したコードスタイルを保つために使用されています。
+
+#### 設定内容
+
+- **セミコロン**: 使用
+- **引用符**: ダブルクォート
+- **行幅**: 80文字
+- **インデント**: 2スペース
+- **トレイリングコンマ**: ES5準拠
+
+#### 使用方法
+
+```bash
+# コードフォーマット
+npm run format
+
+# フォーマットチェック
+npm run format:check
+
+# ESLint + Prettier統合実行
+npm run lint:format
+```
+
+### 統合ワークフロー
+
+開発時は以下のコマンドを実行してコード品質を保ちます：
+
+```bash
+# 開発前のチェック
+npm run lint:format
+
+# コミット前のチェック
+npm run lint && npm run format:check
+```
+
 ---
-Colima推奨。IntelliJ IDEAで開発推奨。
 
 ## ドキュメント
 
