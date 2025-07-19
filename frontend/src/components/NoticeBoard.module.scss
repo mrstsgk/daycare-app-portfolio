@@ -1,0 +1,93 @@
+@import "../styles/variables.scss";
+
+.noticeBoard {
+  background-color: $notice-bg;
+  border: 1px solid $notice-border;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: $shadow-light;
+}
+
+.noticeTitle {
+  color: $notice-text;
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: "📢";
+    margin-right: 0.5rem;
+  }
+}
+
+.noticeList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.noticeItem {
+  background-color: $white;
+  border-left: 4px solid $priority-medium;
+  padding: 1rem;
+  border-radius: $border-radius-small;
+  box-shadow: $shadow-item;
+
+  &.priorityHigh {
+    @include priority-variant($priority-high, $priority-high-bg);
+  }
+
+  &.priorityMedium {
+    @include priority-variant($priority-medium, $priority-medium-bg);
+  }
+
+  &.priorityLow {
+    @include priority-variant($priority-low, $priority-low-bg);
+  }
+}
+
+.noticeItemTitle {
+  font-weight: bold;
+  color: $text-primary;
+}
+
+.noticeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.noticeDate {
+  font-size: 0.875rem;
+  color: $text-secondary;
+}
+
+.noticeContent {
+  margin: 0;
+  color: $text-muted;
+  line-height: 1.5;
+}
+
+.noNotices {
+  text-align: center;
+  color: $text-secondary;
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .noticeBoard {
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+
+  .noticeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+} 
