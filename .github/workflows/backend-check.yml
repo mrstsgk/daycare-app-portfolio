@@ -3,8 +3,38 @@ name: Backend CI
 on:
   push:
     branches: [ main, develop ]
+    paths:
+      - 'backend/**/*.kt'
+      - 'backend/**/*.java'
+      - 'backend/**/*.gradle'
+      - 'backend/**/*.gradle.kts'
+      - 'backend/**/*.yml'
+      - 'backend/**/*.yaml'
+      - 'backend/**/*.properties'
+      - 'backend/**/*.sql'
+      - 'backend/build.gradle.kts'
+      - 'backend/settings.gradle.kts'
+      - 'backend/gradle/**'
+      - 'backend/migration/**'
+      - 'backend/openapi/**'
+      - '.github/workflows/backend-check.yml'
   pull_request:
     branches: [ main, develop ]
+    paths:
+      - 'backend/**/*.kt'
+      - 'backend/**/*.java'
+      - 'backend/**/*.gradle'
+      - 'backend/**/*.gradle.kts'
+      - 'backend/**/*.yml'
+      - 'backend/**/*.yaml'
+      - 'backend/**/*.properties'
+      - 'backend/**/*.sql'
+      - 'backend/build.gradle.kts'
+      - 'backend/settings.gradle.kts'
+      - 'backend/gradle/**'
+      - 'backend/migration/**'
+      - 'backend/openapi/**'
+      - '.github/workflows/backend-check.yml'
 
 jobs:
   backend:
