@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Dashboard.scss";
+import styles from "./Dashboard.module.scss";
 
 interface FeatureItem {
   id: string;
@@ -46,20 +46,20 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-content">
-        <h2 className="dashboard-title">機能一覧</h2>
-        <div className="features-grid">
-          {features.map(feature => (
+    <div className={styles.dashboard}>
+      <div className={styles.dashboardContent}>
+        <h2 className={styles.dashboardTitle}>機能一覧</h2>
+        <div className={styles.featuresGrid}>
+          {features.map((feature) => (
             <div
               key={feature.id}
-              className="feature-card"
+              className={styles.featureCard}
               onClick={() => onNavigate(feature.path)}
             >
-              <div className="feature-icon">{feature.icon}</div>
-              <h3 className="feature-title">{feature.title}</h3>
-              <p className="feature-description">{feature.description}</p>
-              <button className="feature-button">開く</button>
+              <div className={styles.featureIcon}>{feature.icon}</div>
+              <h3 className={styles.featureTitle}>{feature.title}</h3>
+              <p className={styles.featureDescription}>{feature.description}</p>
+              <button className={styles.featureButton}>開く</button>
             </div>
           ))}
         </div>

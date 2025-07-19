@@ -1,0 +1,106 @@
+@import "../styles/variables.scss";
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboardContent {
+  width: 100%;
+}
+
+.dashboardTitle {
+  text-align: center;
+  color: $text-primary;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 1rem 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.featureCard {
+  background-color: $card-background;
+  border-radius: $border-radius-card;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: $shadow-light;
+  transition: all $transition-medium ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:hover {
+    @include card-hover;
+  }
+}
+
+.featureIcon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.featureTitle {
+  color: $text-primary;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.featureDescription {
+  color: $text-secondary;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.featureButton {
+  @include button-primary;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  .featureCard {
+    padding: 1.5rem;
+    min-height: 200px;
+  }
+
+  .featureIcon {
+    font-size: 2.5rem;
+  }
+
+  .featureTitle {
+    font-size: 1.25rem;
+  }
+} 
