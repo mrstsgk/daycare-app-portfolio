@@ -200,16 +200,6 @@ npm run lint:format
 
 ### 統合ワークフロー
 
-#### フロントエンド開発時
-
-```bash
-# 開発前のチェック
-npm run lint:format
-
-# コミット前のチェック
-npm run lint && npm run format:check
-```
-
 #### バックエンド開発時
 
 ```bash
@@ -225,6 +215,16 @@ cd backend
 
 # コミット前のチェック
 ./gradlew detekt && ./gradlew test
+```
+
+#### フロントエンド開発時
+
+```bash
+# 開発前のチェック
+npm run lint:format
+
+# コミット前のチェック
+npm run lint && npm run format:check
 ```
 
 ### CI/CD
