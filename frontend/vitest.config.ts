@@ -1,5 +1,5 @@
-import {defineConfig, mergeConfig} from "vite";
-import {defineConfig as defineVitestConfig} from "vitest/config";
+import { defineConfig, mergeConfig } from "vite";
+import { defineConfig as defineVitestConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import * as path from "node:path";
 
