@@ -20,7 +20,7 @@ function App() {
       }
     };
 
-    fetchStudents();
+    void fetchStudents();
   }, []);
 
   if (loading) return <div>読み込み中...</div>;
