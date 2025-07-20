@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { studentApi, StudentResponseModel } from "./api/client";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
       }
     };
 
-    fetchStudents();
+    void fetchStudents();
   }, []);
 
   if (loading) return <div>読み込み中...</div>;
