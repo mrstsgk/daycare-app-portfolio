@@ -52,7 +52,7 @@ module.exports = {
       version: "detect",
     },
   },
-  ignorePatterns: ["build/", "node_modules/", "*.config.js", "*.config.ts"],
+  ignorePatterns: ["build/", "node_modules/", "*.config.js"],
   globals: {
     vi: true,
     describe: true,
