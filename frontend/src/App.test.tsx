@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import "@testing-library/jest-dom";
 import App from "./App";
 
