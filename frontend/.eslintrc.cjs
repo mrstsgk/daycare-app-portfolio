@@ -53,12 +53,4 @@ module.exports = {
     },
   },
   ignorePatterns: ["build/", "node_modules/", "*.config.js"],
-  globals: {
-    vi: true,
-    describe: true,
-    it: true,
-    expect: true,
-    beforeEach: true,
-    afterEach: true,
-  },
 };

@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { vi } from "vitest";
-import "@testing-library/jest-dom";
+import { describe, it, expect, vi } from "vitest";
 import App from "./App";
 
 // API呼び出しをモック
