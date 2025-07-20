@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,22 +8,17 @@ export default defineConfig({
     port: 3000,
     open: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true
-      }
-    }
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+      },
+    },
   },
   build: {
-    outDir: 'build',
-    sourcemap: true
+    outDir: "build",
+    sourcemap: true,
   },
   define: {
-    global: 'globalThis',
+    global: "globalThis",
   },
-  test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
-    globals: true
-  }
-})
+});
