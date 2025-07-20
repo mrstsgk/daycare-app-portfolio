@@ -34,7 +34,7 @@ describe("App", () => {
     // テーブル構造が正しく表示されていることを確認
     const table = screen.getByRole("table");
     expect(table).toBeInTheDocument();
-    
+
     // テーブルヘッダーが存在することを確認
     expect(screen.getByText("ID")).toBeInTheDocument();
     expect(screen.getByText("名前")).toBeInTheDocument();
