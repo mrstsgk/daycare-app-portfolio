@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { studentApi, StudentResponseModel } from "./api/client";
 
 function App() {
