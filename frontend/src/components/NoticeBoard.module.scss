@@ -33,15 +33,24 @@
 }
 
 .priorityHigh {
-  @include variables.priority-variant(variables.$priority-high, variables.$priority-high-bg);
+  @include variables.priority-variant(
+    variables.$priority-high,
+    variables.$priority-high-bg
+  );
 }
 
 .priorityMedium {
-  @include variables.priority-variant(variables.$priority-medium, variables.$priority-medium-bg);
+  @include variables.priority-variant(
+    variables.$priority-medium,
+    variables.$priority-medium-bg
+  );
 }
 
 .priorityLow {
-  @include variables.priority-variant(variables.$priority-low, variables.$priority-low-bg);
+  @include variables.priority-variant(
+    variables.$priority-low,
+    variables.$priority-low-bg
+  );
 }
 
 .noticeHeader {
