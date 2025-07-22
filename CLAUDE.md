@@ -4,8 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a daycare management application built with Spring Boot + Kotlin backend and React + TypeScript frontend. The
-backend follows Clean Architecture principles with strict layer separation.
+This is a daycare management application built with Spring Boot + Kotlin backend and React + TypeScript frontend. It
+includes functionalities such as student management, attendance tracking, and communication tools for parents and staff.
+The backend follows Clean Architecture principles with strict layer separation.
 
 ## Architecture
 
@@ -24,8 +25,7 @@ The backend is organized in separate Gradle subprojects that enforce dependency 
 
 - **Vite + React 18** with TypeScript
 - **API client** in `src/api/client.ts` using Axios with environment-based URL configuration
-- **TailwindCSS** for styling
-- **Vitest** for testing (setup but tests not implemented yet)
+- ***Vitest** for testing
 
 ### Database & Code Generation
 
