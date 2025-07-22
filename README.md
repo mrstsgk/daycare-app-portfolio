@@ -4,14 +4,14 @@
 
 ## 技術構成
 
-- フロントエンド: React.js + TypeScript
+- フロントエンド: React.js + TypeScript + Vite
 - バックエンド: Spring Boot + Kotlin
-- データベース: PostgreSQL
-- コンテナ化: Docker
-- API仕様: OpenAPI 3.0
+- データベース: PostgresSQL
 - データベースアクセス: JOOQ
-- Colima
-- IntelliJ IDEAで開発推奨
+- コンテナ化: Docker
+- docker環境構築: Colima
+- API仕様: OpenAPI 3.0
+- IDE: IntelliJ IDEA、 Cursor
 
 ## アーキテクチャ
 
