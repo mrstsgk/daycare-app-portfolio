@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import NoticeBoard from "./NoticeBoard";
 
 describe("NoticeBoard", () => {
@@ -9,14 +9,14 @@ describe("NoticeBoard", () => {
       title: "テストお知らせ",
       content: "お知らせ内容",
       date: "2025-07-15",
-      priority: "high",
+      priority: "high" as const,
     },
     {
       id: 2,
       title: "メンテナンス",
       content: "メンテナンス内容",
       date: "2025-07-14",
-      priority: "medium",
+      priority: "medium" as const,
     },
   ];
 
