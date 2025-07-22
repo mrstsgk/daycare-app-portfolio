@@ -1,0 +1,107 @@
+@use "../styles/variables" as variables;
+
+.noticeBoard {
+  background-color: variables.$notice-bg;
+  border: 1px solid variables.$notice-border;
+  border-radius: variables.$border-radius;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.noticeTitle {
+  color: variables.$notice-text;
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.noticeList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.noticeItem {
+  background-color: variables.$white;
+  border-radius: variables.$border-radius-small;
+  padding: 1rem;
+  border-left: 4px solid variables.$priority-medium;
+  box-shadow: variables.$shadow-item;
+}
+
+.priorityHigh {
+  @include variables.priority-variant(
+    variables.$priority-high,
+    variables.$priority-high-bg
+  );
+}
+
+.priorityMedium {
+  @include variables.priority-variant(
+    variables.$priority-medium,
+    variables.$priority-medium-bg
+  );
+}
+
+.priorityLow {
+  @include variables.priority-variant(
+    variables.$priority-low,
+    variables.$priority-low-bg
+  );
+}
+
+.noticeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.noticeItemTitle {
+  font-weight: bold;
+  color: variables.$text-primary;
+  font-size: 1rem;
+}
+
+.noticeDate {
+  color: variables.$text-muted;
+  font-size: 0.875rem;
+}
+
+.noticeContent {
+  color: variables.$text-secondary;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.noNotices {
+  text-align: center;
+  color: variables.$text-muted;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+@media (max-width: variables.$breakpoint-mobile) {
+  .noticeBoard {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .noticeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .noticeItemTitle {
+    font-size: 0.95rem;
+  }
+
+  .noticeDate {
+    font-size: 0.8rem;
+  }
+}

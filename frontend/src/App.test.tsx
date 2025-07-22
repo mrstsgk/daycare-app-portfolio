@@ -1,43 +1,32 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import App from "./App";
 
-// API呼び出しをモック
-vi.mock("./api/client", () => ({
-  studentApi: {
-    getStudents: vi.fn().mockResolvedValue([
-      {
-        id: 1,
-        name: "テスト太郎",
-        age: 5,
-        className: "ひまわり組",
-      },
-    ]),
-  },
-}));
-
 describe("App", () => {
-  it("renders loading state and then content", async () => {
+  it("renders main components correctly", () => {
     render(<App />);
 
-    // まず読み込み中が表示されることを確認 (jest-domマッチャーで型安全性向上)
-    expect(screen.getByText("読み込み中...")).toBeInTheDocument();
+    // ヘッダーコンポーネントが表示されることを確認
+    expect(screen.getByText("スマ登園")).toBeInTheDocument();
+    expect(screen.getByText("田中 太郎さん")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "ログアウト" })
+    ).toBeInTheDocument();
 
-    // 非同期処理完了後にコンテンツが表示されることを確認
-    await waitFor(() => {
-      expect(screen.getByText("保育園管理システム")).toBeInTheDocument();
-      expect(screen.getByText("テスト太郎")).toBeInTheDocument();
-      expect(screen.getByText("生徒一覧")).toBeInTheDocument();
-    });
+    // お知らせボードが表示されることを確認
+    expect(screen.getByText("重要なお知らせ")).toBeInTheDocument();
+    expect(screen.getByText("運動会のお知らせ")).toBeInTheDocument();
+    expect(screen.getByText("システムメンテナンス")).toBeInTheDocument();
 
-    // テーブル構造が正しく表示されていることを確認
-    const table = screen.getByRole("table");
-    expect(table).toBeInTheDocument();
+    // ダッシュボードが表示されることを確認
+    expect(screen.getByText("機能一覧")).toBeInTheDocument();
+    expect(screen.getByText("登園・降園")).toBeInTheDocument();
+    expect(screen.getByText("出勤・退勤")).toBeInTheDocument();
+    expect(screen.getByText("連絡帳作成")).toBeInTheDocument();
+    expect(screen.getByText("日案作成")).toBeInTheDocument();
 
-    // テーブルヘッダーが存在することを確認
-    expect(screen.getByText("ID")).toBeInTheDocument();
-    expect(screen.getByText("名前")).toBeInTheDocument();
-    expect(screen.getByText("年齢")).toBeInTheDocument();
-    expect(screen.getByText("クラス")).toBeInTheDocument();
+    // すべての「開く」ボタンが表示されることを確認
+    const openButtons = screen.getAllByRole("button", { name: "開く" });
+    expect(openButtons).toHaveLength(4);
   });
 });
