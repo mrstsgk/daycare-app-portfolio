@@ -104,7 +104,7 @@ npm run format
 npm run format:check
 
 # ESLintとPrettierの統合実行
-npm run lint:fix:format
+npm run lint && npm run format
 ```
 
 ### バックエンド
