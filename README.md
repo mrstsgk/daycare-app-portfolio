@@ -31,7 +31,7 @@
 ### バックエンド
 
 - Kotlin + Spring Boot
-- テストツール：Kotest
+- テストツール: Kotest
 - データベース: PostgreSQL
 - データベースアクセス: jOOQ
 - コンテナ化: Docker
