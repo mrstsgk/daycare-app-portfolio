@@ -9,6 +9,33 @@ servers:
     description: 開発環境
 
 paths:
+  /api/login:
+    post:
+      summary: ログイン
+      description: ログインIDとパスワードで認証し、JWTトークンを返します
+      operationId: login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequestModel"
+      responses:
+        "200":
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponseModel"
+        "401":
+          $ref: "error.yaml#/components/responses/UnauthorizedError"
+        "423":
+          $ref: "error.yaml#/components/responses/AccountLockedError"
+        "500":
+          $ref: "error.yaml#/components/responses/InternalServerError"
+
   /api/students:
     get:
       summary: 生徒一覧取得
@@ -17,19 +44,92 @@ paths:
       tags:
         - Student
       responses:
-        '200':
+        "200":
           description: 生徒一覧取得成功
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/StudentResponseModel'
-        '500':
-          description: サーバーエラー
+                  $ref: "#/components/schemas/StudentResponseModel"
+        "400":
+          $ref: "error.yaml#/components/responses/BadRequestError"
+        "500":
+          $ref: "error.yaml#/components/responses/InternalServerError"
 
 components:
   schemas:
+    LoginRequestModel:
+      type: object
+      description: ログインリクエスト
+      properties:
+        loginId:
+          type: string
+          description: ログインID（ユーザーのコード）- 英数文字のみ入力可能
+          minLength: 1
+          maxLength: 50
+          pattern: '^[A-Za-z0-9]+$'
+          example: "sampleUser123"
+        password:
+          type: string
+          format: password
+          description: |
+            パスワード（10文字以上50文字以下）
+            以下の文字種を最低1文字ずつ含む必要があります：
+            - 英大文字（A-Z）
+            - 英小文字（a-z）
+            - 数字（0-9）
+            - 記号（!@#$%^&*など）
+          minLength: 10
+          maxLength: 50
+          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]$'
+          example: "Password123!"
+      required:
+        - loginId
+        - password
+
+    LoginResponseModel:
+      type: object
+      description: ログインレスポンス
+      properties:
+        isSuccess:
+          type: boolean
+          description: ログイン成功フラグ
+          example: true
+        token:
+          type: string
+          description: JWTトークン
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        user:
+          $ref: "#/components/schemas/UserInfoModel"
+      required:
+        - isSuccess
+        - token
+        - user
+
+    UserInfoModel:
+      type: object
+      description: ユーザー情報
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ユーザーID
+          example: 1
+        name:
+          type: string
+          description: ユーザー名
+          example: "田中 太郎"
+        userType:
+          type: string
+          enum: [ employee, guardian ]
+          description: ユーザータイプ
+          example: "employee"
+      required:
+        - id
+        - name
+        - userType
+
     StudentResponseModel:
       type: object
       description: 生徒レスポンスモデル
