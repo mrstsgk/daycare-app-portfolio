@@ -5,7 +5,7 @@ CREATE TABLE student_guardian
     guardian_id   INTEGER NOT NULL REFERENCES guardian (id) ON DELETE CASCADE,
     guardian_type INTEGER NOT NULL,
     is_primary    BOOLEAN DEFAULT FALSE,
-    created_at    TIMESTAMP,
+    created_at    TIMESTAMP NOT NULL,
     updated_at    TIMESTAMP,
     UNIQUE (student_id, guardian_id)
 );

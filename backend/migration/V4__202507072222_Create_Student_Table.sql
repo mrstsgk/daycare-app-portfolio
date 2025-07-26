@@ -4,7 +4,7 @@ CREATE TABLE student (
     birth_date DATE NOT NULL,
     gender INTEGER NOT NULL,
     class_room_id INTEGER REFERENCES class_room (id),
-    created_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP
 );
 
