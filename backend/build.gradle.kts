@@ -29,10 +29,12 @@ openApiGenerate {
     modelPackage.set("com.example.daycare.presentation.model")
     configOptions.put("useSpringBoot3", "true")
     configOptions.put("modelOnly", "true")
-    configOptions.put("skipApiGeneration", "true")
-    configOptions.put("skipDocumentation", "true")
     configOptions.put("interfaceOnly", "true")
     configOptions.put("skipDefaultInterface", "true")
+    // @Schemaアノテーションのみを生成しない設定（Bean Validationは保持）
+    configOptions.put("useBeanValidation", "true")
+    configOptions.put("useSwaggerAnnotations", "false")
+    configOptions.put("serializationLibrary", "jackson")
 }
 
 // 生成されたモデルファイルを適切な場所にコピー
@@ -51,9 +53,19 @@ tasks.register("copyOpenApiModels") {
     }
 }
 
+// @Schemaアノテーションを削除するタスク
+tasks.register("removeSchemaAnnotations") {
+    dependsOn("copyOpenApiModels")
+    doLast {
+        exec {
+            commandLine("sh", "$projectDir/remove-schema-annotations.sh")
+        }
+    }
+}
+
 // openApiGenerateの後に自動実行
 tasks.named("openApiGenerate") {
-    finalizedBy("copyOpenApiModels")
+    finalizedBy("removeSchemaAnnotations")
 }
 
 // Flyway設定を更新
