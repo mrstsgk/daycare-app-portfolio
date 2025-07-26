@@ -7,7 +7,7 @@ CREATE TABLE user_password
     password_hash VARCHAR(255) NOT NULL,
     failed_login_attempts INTEGER NOT NULL,
     locked_until TIMESTAMP,
-    created_at   TIMESTAMP,
+    created_at   TIMESTAMP NOT NULL,
     updated_at   TIMESTAMP,
     UNIQUE(user_id, user_type)
 );

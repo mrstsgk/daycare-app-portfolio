@@ -6,7 +6,7 @@ CREATE TABLE jwt_token
     user_id      INTEGER NOT NULL,
     user_type    VARCHAR(20) NOT NULL CHECK (user_type IN ('employee', 'guardian')),
     expires_at   TIMESTAMP NOT NULL,
-    created_at   TIMESTAMP,
+    created_at   TIMESTAMP NOT NULL,
     is_revoked   BOOLEAN DEFAULT FALSE
 );
 

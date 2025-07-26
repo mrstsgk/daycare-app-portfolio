@@ -3,7 +3,7 @@ CREATE TABLE class_room
     id         SERIAL PRIMARY KEY,
     name       VARCHAR(50) NOT NULL,
     grade      INTEGER NOT NULL,
-    created_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP
 );
 

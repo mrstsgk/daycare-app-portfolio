@@ -7,7 +7,7 @@ CREATE TABLE employee
     telephone   VARCHAR(15) NOT NULL,
     admin       BOOLEAN     NOT NULL,
     class_room_id INTEGER REFERENCES class_room(id),
-    created_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP
 );
 
