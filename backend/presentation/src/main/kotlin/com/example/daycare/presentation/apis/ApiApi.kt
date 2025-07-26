@@ -5,6 +5,9 @@
 */
 package com.example.daycare.presentation.apis
 
+import com.example.daycare.presentation.model.ErrorResponse
+import com.example.daycare.presentation.model.LoginRequestModel
+import com.example.daycare.presentation.model.LoginResponseModel
 import com.example.daycare.presentation.model.StudentResponseModel
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -44,7 +47,8 @@ interface ApiApi {
         description = """全生徒の一覧を取得します""",
         responses = [
             ApiResponse(responseCode = "200", description = "生徒一覧取得成功", content = [Content(array = ArraySchema(schema = Schema(implementation = StudentResponseModel::class)))]),
-            ApiResponse(responseCode = "500", description = "サーバーエラー")
+            ApiResponse(responseCode = "400", description = "不正なリクエスト", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+            ApiResponse(responseCode = "500", description = "サーバーエラー", content = [Content(schema = Schema(implementation = ErrorResponse::class))])
         ]
     )
     @RequestMapping(
@@ -53,4 +57,24 @@ interface ApiApi {
             produces = ["application/json"]
     )
     fun getStudents(): ResponseEntity<List<StudentResponseModel>>
+
+    @Operation(
+        tags = ["Auth",],
+        summary = "ログイン",
+        operationId = "login",
+        description = """ログインIDとパスワードで認証し、JWTトークンを返します""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "ログイン成功", content = [Content(schema = Schema(implementation = LoginResponseModel::class))]),
+            ApiResponse(responseCode = "401", description = "認証失敗", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+            ApiResponse(responseCode = "423", description = "アカウントロック", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+            ApiResponse(responseCode = "500", description = "サーバーエラー", content = [Content(schema = Schema(implementation = ErrorResponse::class))])
+        ]
+    )
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/api/login"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun login(@Parameter(description = "", required = true) @Valid @RequestBody loginRequestModel: LoginRequestModel): ResponseEntity<LoginResponseModel>
 }
