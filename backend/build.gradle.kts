@@ -35,6 +35,7 @@ openApiGenerate {
     configOptions.put("useBeanValidation", "true")
     configOptions.put("useSwaggerAnnotations", "false")
     configOptions.put("serializationLibrary", "jackson")
+    configOptions.put("generateNullableAnnotations", "false")
 }
 
 // 生成されたモデルファイルを適切な場所にコピー
