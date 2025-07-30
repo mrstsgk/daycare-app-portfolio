@@ -29,13 +29,29 @@ openApiGenerate {
     modelPackage.set("com.example.daycare.presentation.model")
     configOptions.put("useSpringBoot3", "true")
     configOptions.put("modelOnly", "true")
-    configOptions.put("interfaceOnly", "true")
+    configOptions.put("interfaceOnly", "false")
     configOptions.put("skipDefaultInterface", "true")
+    configOptions.put("generateApis", "false")
+    configOptions.put("generateApiTests", "false")
+    configOptions.put("generateApiDocumentation", "false")
+    configOptions.put("generateModelTests", "false")
+    configOptions.put("generateModelDocumentation", "false")
+    configOptions.put("generateSupportingFiles", "false")
+    // Serializableエラーを回避するための設定
+    configOptions.put("enumPropertyNaming", "original")
+    configOptions.put("useSerializableModel", "false")
+    configOptions.put("enumUnknownDefaultCase", "false")
+    configOptions.put("generateConstructorPropertiesAnnotation", "false")
     // @Schemaアノテーションのみを生成しない設定（Bean Validationは保持）
     configOptions.put("useBeanValidation", "true")
     configOptions.put("useSwaggerAnnotations", "false")
     configOptions.put("serializationLibrary", "jackson")
     configOptions.put("generateNullableAnnotations", "false")
+    configOptions.put("enumUnknownDefaultCase", "false")
+    configOptions.put("serializableModel", "false")
+    // 特定のファイルのみ生成対象から除外
+    globalProperties.put("models", "")
+    globalProperties.put("apis", "false")
 }
 
 // 生成されたモデルファイルを適切な場所にコピー
