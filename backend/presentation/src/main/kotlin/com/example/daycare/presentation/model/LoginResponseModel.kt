@@ -1,8 +1,6 @@
 package com.example.daycare.presentation.model
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -19,7 +17,7 @@ import jakarta.validation.Valid
  * @param token JWTトークン
  * @param userId ユーザーID
  * @param userName ユーザー名
- * @param userType ユーザータイプ
+ * @param userType ユーザータイプ（0：保護者,  1：教員）
  */
 data class LoginResponseModel(
 
@@ -35,27 +33,11 @@ data class LoginResponseModel(
     @field:NotNull
     @get:JsonProperty("userName") val userName: kotlin.String,
 
+    @get:Min(0)
+    @get:Max(1)
     @field:NotNull
-    @get:JsonProperty("userType") val userType: LoginResponseModel.UserType
+    @get:JsonProperty("userType") val userType: kotlin.Int
     ) {
-
-    /**
-    * ユーザータイプ
-    * Values: _0,_1
-    */
-    enum class UserType(@get:JsonValue val value: kotlin.Int) {
-
-        _0(0),
-        _1(1);
-
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.Int): UserType {
-                return entries.first{it.value == value}
-            }
-        }
-    }
 
 }
 

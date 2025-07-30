@@ -112,11 +112,10 @@ components:
         userType:
           type: integer
           format: int32
-          description: ユーザータイプ
-          enum:
-            - 0 # 保護者
-            - 1 # 保育士
-          example: 2
+          minimum: 0
+          maximum: 1
+          description: ユーザータイプ（0：保護者,  1：教員）
+          example: 1
       required:
         - isSuccess
         - token
