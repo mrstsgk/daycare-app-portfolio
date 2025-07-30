@@ -20,17 +20,21 @@ import jakarta.validation.Valid
  */
 data class StudentResponseModel(
 
-    @get:JsonProperty("id", required = true) val id: kotlin.Long,
+    @field:NotNull
+    @get:JsonProperty("id") val id: kotlin.Long,
 
     @get:Size(max=50)
-    @get:JsonProperty("name", required = true) val name: kotlin.String,
+    @field:NotNull
+    @get:JsonProperty("name") val name: kotlin.String,
 
     @get:Min(0)
     @get:Max(20)
-    @get:JsonProperty("age", required = true) val age: kotlin.Int,
+    @field:NotNull
+    @get:JsonProperty("age") val age: kotlin.Int,
 
     @get:Size(max=50)
-    @get:JsonProperty("className", required = true) val className: kotlin.String
+    @field:NotNull
+    @get:JsonProperty("className") val className: kotlin.String
     ) {
 
 }

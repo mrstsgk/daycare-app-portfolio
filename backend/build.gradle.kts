@@ -49,6 +49,8 @@ openApiGenerate {
     configOptions.put("generateNullableAnnotations", "false")
     configOptions.put("enumUnknownDefaultCase", "false")
     configOptions.put("serializableModel", "false")
+    // カスタムテンプレートディレクトリを指定
+    templateDir.set("$projectDir/openapi-templates")
     // 特定のファイルのみ生成対象から除外
     globalProperties.put("models", "")
     globalProperties.put("apis", "false")
@@ -80,9 +82,19 @@ tasks.register("removeSchemaAnnotations") {
     }
 }
 
+// @field:NotNullアノテーションを追加するタスク
+tasks.register("addNotNullAnnotations") {
+    dependsOn("removeSchemaAnnotations")
+    doLast {
+        exec {
+            commandLine("sh", "$projectDir/add-not-null-annotations.sh")
+        }
+    }
+}
+
 // openApiGenerateの後に自動実行
 tasks.named("openApiGenerate") {
-    finalizedBy("removeSchemaAnnotations")
+    finalizedBy("addNotNullAnnotations")
 }
 
 // Flyway設定を更新

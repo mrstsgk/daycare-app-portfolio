@@ -100,34 +100,28 @@ components:
           type: string
           description: JWTトークン
           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-        user:
-          $ref: "#/components/schemas/UserInfoModel"
-      required:
-        - isSuccess
-        - token
-        - user
-
-    UserInfoModel:
-      type: object
-      description: ユーザー情報
-      properties:
-        id:
+        userId:
           type: integer
           format: int64
           description: ユーザーID
           example: 1
-        name:
+        userName:
           type: string
           description: ユーザー名
           example: "田中 太郎"
         userType:
-          type: string
-          enum: [ employee, guardian ]
+          type: integer
+          format: int32
           description: ユーザータイプ
-          example: "employee"
+          enum:
+            - 0 # 保護者
+            - 1 # 保育士
+          example: 2
       required:
-        - id
-        - name
+        - isSuccess
+        - token
+        - userId
+        - userName
         - userType
 
     StudentResponseModel:

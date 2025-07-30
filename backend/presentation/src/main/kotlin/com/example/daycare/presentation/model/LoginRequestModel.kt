@@ -20,11 +20,13 @@ data class LoginRequestModel(
 
     @get:Pattern(regexp="^[A-Za-z0-9]+$")
     @get:Size(min=1,max=50)
-    @get:JsonProperty("loginId", required = true) val loginId: kotlin.String,
+    @field:NotNull
+    @get:JsonProperty("loginId") val loginId: kotlin.String,
 
     @get:Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]$")
     @get:Size(min=10,max=50)
-    @get:JsonProperty("password", required = true) val password: kotlin.String
+    @field:NotNull
+    @get:JsonProperty("password") val password: kotlin.String
     ) {
 
 }

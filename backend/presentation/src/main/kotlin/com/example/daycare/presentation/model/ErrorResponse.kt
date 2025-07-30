@@ -19,9 +19,11 @@ import jakarta.validation.Valid
  */
 data class ErrorResponse(
 
-    @get:JsonProperty("isSuccess", required = true) val isSuccess: kotlin.Boolean,
+    @field:NotNull
+    @get:JsonProperty("isSuccess") val isSuccess: kotlin.Boolean,
 
-    @get:JsonProperty("message", required = true) val message: kotlin.String,
+    @field:NotNull
+    @get:JsonProperty("message") val message: kotlin.String,
 
     @get:JsonProperty("errorCode") val errorCode: kotlin.String? = null
     ) {
