@@ -23,8 +23,20 @@ frontend/build/
 # Spring Boot
 backend/target/
 
+# Backend build directories
+# すべてのbackendサブプロジェクトのbuildディレクトリを除外
+backend/build/
+backend/presentation/build/
+backend/usecase/build/
+backend/domain/build/
+
+# infrastructureのbuildディレクトリは部分的に除外
+backend/infrastructure/build/
+# generated-srcは含める（JOOQで生成されるコード用）
+!backend/infrastructure/build/generated-src/
+
 # Mac OS
 .DS_Store
 
 # Docker
-.env 
+.env
