@@ -29,10 +29,31 @@ openApiGenerate {
     modelPackage.set("com.example.daycare.presentation.model")
     configOptions.put("useSpringBoot3", "true")
     configOptions.put("modelOnly", "true")
-    configOptions.put("skipApiGeneration", "true")
-    configOptions.put("skipDocumentation", "true")
-    configOptions.put("interfaceOnly", "true")
+    configOptions.put("interfaceOnly", "false")
     configOptions.put("skipDefaultInterface", "true")
+    configOptions.put("generateApis", "false")
+    configOptions.put("generateApiTests", "false")
+    configOptions.put("generateApiDocumentation", "false")
+    configOptions.put("generateModelTests", "false")
+    configOptions.put("generateModelDocumentation", "false")
+    configOptions.put("generateSupportingFiles", "false")
+    // Serializableエラーを回避するための設定
+    configOptions.put("enumPropertyNaming", "original")
+    configOptions.put("useSerializableModel", "false")
+    configOptions.put("enumUnknownDefaultCase", "false")
+    configOptions.put("generateConstructorPropertiesAnnotation", "false")
+    // @Schemaアノテーションのみを生成しない設定（Bean Validationは保持）
+    configOptions.put("useBeanValidation", "true")
+    configOptions.put("useSwaggerAnnotations", "false")
+    configOptions.put("serializationLibrary", "jackson")
+    configOptions.put("generateNullableAnnotations", "false")
+    configOptions.put("enumUnknownDefaultCase", "false")
+    configOptions.put("serializableModel", "false")
+    // カスタムテンプレートディレクトリを指定
+    templateDir.set("$projectDir/openapi-templates")
+    // 特定のファイルのみ生成対象から除外
+    globalProperties.put("models", "")
+    globalProperties.put("apis", "false")
 }
 
 // 生成されたモデルファイルを適切な場所にコピー
@@ -51,9 +72,29 @@ tasks.register("copyOpenApiModels") {
     }
 }
 
+// @Schemaアノテーションを削除するタスク
+tasks.register("removeSchemaAnnotations") {
+    dependsOn("copyOpenApiModels")
+    doLast {
+        exec {
+            commandLine("sh", "$projectDir/remove-schema-annotations.sh")
+        }
+    }
+}
+
+// @field:NotNullアノテーションを追加するタスク
+tasks.register("addNotNullAnnotations") {
+    dependsOn("removeSchemaAnnotations")
+    doLast {
+        exec {
+            commandLine("sh", "$projectDir/add-not-null-annotations.sh")
+        }
+    }
+}
+
 // openApiGenerateの後に自動実行
 tasks.named("openApiGenerate") {
-    finalizedBy("copyOpenApiModels")
+    finalizedBy("addNotNullAnnotations")
 }
 
 // Flyway設定を更新

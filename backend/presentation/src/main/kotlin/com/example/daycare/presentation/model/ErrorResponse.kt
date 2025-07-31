@@ -12,29 +12,20 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * 生徒レスポンスモデル
- * @param id 生徒ID
- * @param name 生徒名
- * @param age 年齢
- * @param className クラス名
+ * エラーレスポンス
+ * @param isSuccess 成功フラグ（常にfalse）
+ * @param message エラーメッセージ
+ * @param errorCode エラーコード
  */
-data class StudentResponseModel(
+data class ErrorResponse(
 
     @field:NotNull
-    @get:JsonProperty("id") val id: kotlin.Long,
+    @get:JsonProperty("isSuccess") val isSuccess: kotlin.Boolean,
 
-    @get:Size(max=50)
     @field:NotNull
-    @get:JsonProperty("name") val name: kotlin.String,
+    @get:JsonProperty("message") val message: kotlin.String,
 
-    @get:Min(0)
-    @get:Max(20)
-    @field:NotNull
-    @get:JsonProperty("age") val age: kotlin.Int,
-
-    @get:Size(max=50)
-    @field:NotNull
-    @get:JsonProperty("className") val className: kotlin.String
+    @get:JsonProperty("errorCode") val errorCode: kotlin.String? = null
     ) {
 
 }

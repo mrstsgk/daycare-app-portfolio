@@ -1,0 +1,35 @@
+{{#isString}}
+    @get:Size(min={{minLength}}, max={{maxLength}}){{/isString}}{{#isInteger}}
+    @get:Min({{minimum}}){{/isInteger}}{{#isLong}}
+    @get:Min({{minimum}}){{/isLong}}{{#isFloat}}
+    @get:DecimalMin("{{minimum}}"){{/isFloat}}{{#isDouble}}
+    @get:DecimalMin("{{minimum}}"){{/isDouble}}{{#isString}}{{#pattern}}
+    @get:Pattern(regexp = "{{{pattern}}}"){{/pattern}}{{/isString}}{{#isString}}{{#email}}
+    @get:Email{{/email}}{{/isString}}{{#isString}}{{#isEnum}}
+    @get:Valid{{/isEnum}}{{/isString}}{{#isArray}}
+    @get:Valid{{/isArray}}{{#isMap}}
+    @get:Valid{{/isMap}}{{#hasValidation}}
+{{#isInteger}}
+isInteger set
+{{/isInteger}}{{#isLong}}
+isLong set
+{{/isLong}}{{#isInteger}}{{#minimum}}
+    @get:Min({{.}}){{/minimum}}{{#maximum}}
+    @get:Max({{.}}){{/maximum}}{{/isInteger}}{{#isLong}}{{#minimum}}
+    @get:Min({{.}}){{/minimum}}{{#maximum}}
+    @get:Max({{.}}){{/maximum}}{{/isLong}}{{#isFloat}}{{#minimum}}
+    @get:DecimalMin("{{.}}"){{/minimum}}{{#maximum}}
+    @get:DecimalMax("{{.}}"){{/maximum}}{{/isFloat}}{{#isDouble}}{{#minimum}}
+    @get:DecimalMin("{{.}}"){{/minimum}}{{#maximum}}
+    @get:DecimalMax("{{.}}"){{/maximum}}{{/isDouble}}{{#isString}}{{#minLength}}
+    @get:Size(min={{.}}{{#maxLength}}, max={{.}}{{/maxLength}}){{/minLength}}{{#maxLength}}{{^minLength}}
+    @get:Size(max={{.}}){{/minLength}}{{/maxLength}}{{#pattern}}
+    @get:Pattern(regexp = "{{{.}}}"){{/pattern}}{{/isString}}{{#isString}}{{#email}}
+    @get:Email{{/email}}{{/isString}}{{#isArray}}{{#items}}
+    @get:Valid{{/items}}{{/isArray}}{{#isMap}}{{#items}}
+    @get:Valid{{/items}}{{/isMap}}{{/hasValidation}}{{^isInteger}}{{^isLong}}{{#minimum}}
+    @get:DecimalMin("{{.}}"){{/minimum}}{{#maximum}}
+    @get:DecimalMax("{{.}}"){{/maximum}}{{/isLong}}{{/isInteger}}{{!
+check required
+}}{{#required}}
+    @field:NotNull{{/required}} 

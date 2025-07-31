@@ -1,0 +1,16 @@
+# OpenAPI Generator Ignore
+# apisディレクトリ全体を除外
+**/apis/**
+src/main/kotlin/**/apis/**
+
+# 個別のファイルも明示的に除外
+**/ApiApi.kt
+**/ApiUtil.kt
+**/Exceptions.kt
+
+# その他の自動生成ファイルを除外
+README.md
+.openapi-generator/**
+
+# SpringDocConfigurationは残す
+!**/SpringDocConfiguration.kt
