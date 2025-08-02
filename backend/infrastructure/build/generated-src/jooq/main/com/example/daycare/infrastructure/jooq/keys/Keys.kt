@@ -5,19 +5,17 @@ package com.example.daycare.infrastructure.jooq.keys
 
 
 import com.example.daycare.infrastructure.jooq.tables.ClassRoom
-import com.example.daycare.infrastructure.jooq.tables.Employee
-import com.example.daycare.infrastructure.jooq.tables.Guardian
 import com.example.daycare.infrastructure.jooq.tables.JwtToken
+import com.example.daycare.infrastructure.jooq.tables.Password
 import com.example.daycare.infrastructure.jooq.tables.Student
 import com.example.daycare.infrastructure.jooq.tables.StudentGuardian
-import com.example.daycare.infrastructure.jooq.tables.UserPassword
+import com.example.daycare.infrastructure.jooq.tables.User
 import com.example.daycare.infrastructure.jooq.tables.records.ClassRoomRecord
-import com.example.daycare.infrastructure.jooq.tables.records.EmployeeRecord
-import com.example.daycare.infrastructure.jooq.tables.records.GuardianRecord
 import com.example.daycare.infrastructure.jooq.tables.records.JwtTokenRecord
+import com.example.daycare.infrastructure.jooq.tables.records.PasswordRecord
 import com.example.daycare.infrastructure.jooq.tables.records.StudentGuardianRecord
 import com.example.daycare.infrastructure.jooq.tables.records.StudentRecord
-import com.example.daycare.infrastructure.jooq.tables.records.UserPasswordRecord
+import com.example.daycare.infrastructure.jooq.tables.records.UserRecord
 
 import org.jooq.ForeignKey
 import org.jooq.UniqueKey
@@ -31,24 +29,22 @@ import org.jooq.impl.Internal
 // -------------------------------------------------------------------------
 
 val CLASS_ROOM_PKEY: UniqueKey<ClassRoomRecord> = Internal.createUniqueKey(ClassRoom.CLASS_ROOM, DSL.name("class_room_pkey"), arrayOf(ClassRoom.CLASS_ROOM.ID), true)
-val EMPLOYEE_CODE_KEY: UniqueKey<EmployeeRecord> = Internal.createUniqueKey(Employee.EMPLOYEE, DSL.name("employee_code_key"), arrayOf(Employee.EMPLOYEE.CODE), true)
-val EMPLOYEE_EMAIL_KEY: UniqueKey<EmployeeRecord> = Internal.createUniqueKey(Employee.EMPLOYEE, DSL.name("employee_email_key"), arrayOf(Employee.EMPLOYEE.EMAIL), true)
-val EMPLOYEE_PKEY: UniqueKey<EmployeeRecord> = Internal.createUniqueKey(Employee.EMPLOYEE, DSL.name("employee_pkey"), arrayOf(Employee.EMPLOYEE.ID), true)
-val GUARDIAN_CODE_KEY: UniqueKey<GuardianRecord> = Internal.createUniqueKey(Guardian.GUARDIAN, DSL.name("guardian_code_key"), arrayOf(Guardian.GUARDIAN.CODE), true)
-val GUARDIAN_PKEY: UniqueKey<GuardianRecord> = Internal.createUniqueKey(Guardian.GUARDIAN, DSL.name("guardian_pkey"), arrayOf(Guardian.GUARDIAN.ID), true)
 val JWT_TOKEN_PKEY: UniqueKey<JwtTokenRecord> = Internal.createUniqueKey(JwtToken.JWT_TOKEN, DSL.name("jwt_token_pkey"), arrayOf(JwtToken.JWT_TOKEN.ID), true)
 val JWT_TOKEN_TOKEN_HASH_KEY: UniqueKey<JwtTokenRecord> = Internal.createUniqueKey(JwtToken.JWT_TOKEN, DSL.name("jwt_token_token_hash_key"), arrayOf(JwtToken.JWT_TOKEN.TOKEN_HASH), true)
+val PASSWORD_PKEY: UniqueKey<PasswordRecord> = Internal.createUniqueKey(Password.PASSWORD, DSL.name("password_pkey"), arrayOf(Password.PASSWORD.ID), true)
 val STUDENT_PKEY: UniqueKey<StudentRecord> = Internal.createUniqueKey(Student.STUDENT, DSL.name("student_pkey"), arrayOf(Student.STUDENT.ID), true)
 val STUDENT_GUARDIAN_PKEY: UniqueKey<StudentGuardianRecord> = Internal.createUniqueKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_pkey"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.ID), true)
 val STUDENT_GUARDIAN_STUDENT_ID_GUARDIAN_ID_KEY: UniqueKey<StudentGuardianRecord> = Internal.createUniqueKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_student_id_guardian_id_key"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.STUDENT_ID, StudentGuardian.STUDENT_GUARDIAN.GUARDIAN_ID), true)
-val USER_PASSWORD_PKEY: UniqueKey<UserPasswordRecord> = Internal.createUniqueKey(UserPassword.USER_PASSWORD, DSL.name("user_password_pkey"), arrayOf(UserPassword.USER_PASSWORD.ID), true)
-val USER_PASSWORD_USER_ID_USER_TYPE_KEY: UniqueKey<UserPasswordRecord> = Internal.createUniqueKey(UserPassword.USER_PASSWORD, DSL.name("user_password_user_id_user_type_key"), arrayOf(UserPassword.USER_PASSWORD.USER_ID, UserPassword.USER_PASSWORD.USER_TYPE), true)
+val USER_CODE_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_code_key"), arrayOf(User.USER.CODE), true)
+val USER_EMAIL_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_email_key"), arrayOf(User.USER.EMAIL), true)
+val USER_PKEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), arrayOf(User.USER.ID), true)
 
 // -------------------------------------------------------------------------
 // FOREIGN KEY definitions
 // -------------------------------------------------------------------------
 
-val EMPLOYEE__EMPLOYEE_CLASS_ROOM_ID_FKEY: ForeignKey<EmployeeRecord, ClassRoomRecord> = Internal.createForeignKey(Employee.EMPLOYEE, DSL.name("employee_class_room_id_fkey"), arrayOf(Employee.EMPLOYEE.CLASS_ROOM_ID), com.example.daycare.infrastructure.jooq.keys.CLASS_ROOM_PKEY, arrayOf(ClassRoom.CLASS_ROOM.ID), true)
+val PASSWORD__PASSWORD_USER_ID_FKEY: ForeignKey<PasswordRecord, UserRecord> = Internal.createForeignKey(Password.PASSWORD, DSL.name("password_user_id_fkey"), arrayOf(Password.PASSWORD.USER_ID), com.example.daycare.infrastructure.jooq.keys.USER_PKEY, arrayOf(User.USER.ID), true)
 val STUDENT__STUDENT_CLASS_ROOM_ID_FKEY: ForeignKey<StudentRecord, ClassRoomRecord> = Internal.createForeignKey(Student.STUDENT, DSL.name("student_class_room_id_fkey"), arrayOf(Student.STUDENT.CLASS_ROOM_ID), com.example.daycare.infrastructure.jooq.keys.CLASS_ROOM_PKEY, arrayOf(ClassRoom.CLASS_ROOM.ID), true)
-val STUDENT_GUARDIAN__STUDENT_GUARDIAN_GUARDIAN_ID_FKEY: ForeignKey<StudentGuardianRecord, GuardianRecord> = Internal.createForeignKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_guardian_id_fkey"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.GUARDIAN_ID), com.example.daycare.infrastructure.jooq.keys.GUARDIAN_PKEY, arrayOf(Guardian.GUARDIAN.ID), true)
+val STUDENT_GUARDIAN__STUDENT_GUARDIAN_GUARDIAN_ID_FKEY: ForeignKey<StudentGuardianRecord, UserRecord> = Internal.createForeignKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_guardian_id_fkey"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.GUARDIAN_ID), com.example.daycare.infrastructure.jooq.keys.USER_PKEY, arrayOf(User.USER.ID), true)
 val STUDENT_GUARDIAN__STUDENT_GUARDIAN_STUDENT_ID_FKEY: ForeignKey<StudentGuardianRecord, StudentRecord> = Internal.createForeignKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_student_id_fkey"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.STUDENT_ID), com.example.daycare.infrastructure.jooq.keys.STUDENT_PKEY, arrayOf(Student.STUDENT.ID), true)
+val USER__USER_CLASS_ROOM_ID_FKEY: ForeignKey<UserRecord, ClassRoomRecord> = Internal.createForeignKey(User.USER, DSL.name("user_class_room_id_fkey"), arrayOf(User.USER.CLASS_ROOM_ID), com.example.daycare.infrastructure.jooq.keys.CLASS_ROOM_PKEY, arrayOf(ClassRoom.CLASS_ROOM.ID), true)
