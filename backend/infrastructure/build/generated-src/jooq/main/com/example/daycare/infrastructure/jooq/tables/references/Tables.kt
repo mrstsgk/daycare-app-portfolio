@@ -4,11 +4,47 @@
 package com.example.daycare.infrastructure.jooq.tables.references
 
 
+import com.example.daycare.infrastructure.jooq.tables.ClassRoom
+import com.example.daycare.infrastructure.jooq.tables.Employee
+import com.example.daycare.infrastructure.jooq.tables.Guardian
+import com.example.daycare.infrastructure.jooq.tables.JwtToken
 import com.example.daycare.infrastructure.jooq.tables.Student
+import com.example.daycare.infrastructure.jooq.tables.StudentGuardian
+import com.example.daycare.infrastructure.jooq.tables.UserPassword
 
 
 
 /**
- * The table <code>public.student</code>.
+ * 保育園のクラス情報を管理するテーブル
+ */
+val CLASS_ROOM: ClassRoom = ClassRoom.CLASS_ROOM
+
+/**
+ * 保育園の職員情報を管理するテーブル
+ */
+val EMPLOYEE: Employee = Employee.EMPLOYEE
+
+/**
+ * 保育園の保護者情報を管理するテーブル
+ */
+val GUARDIAN: Guardian = Guardian.GUARDIAN
+
+/**
+ * JWTトークンの管理テーブル
+ */
+val JWT_TOKEN: JwtToken = JwtToken.JWT_TOKEN
+
+/**
+ * 保育園の園児情報を管理するテーブル
  */
 val STUDENT: Student = Student.STUDENT
+
+/**
+ * 園児と保護者の関係を管理する中間テーブル
+ */
+val STUDENT_GUARDIAN: StudentGuardian = StudentGuardian.STUDENT_GUARDIAN
+
+/**
+ * ユーザー（職員・保護者）のパスワード情報を管理するテーブル
+ */
+val USER_PASSWORD: UserPassword = UserPassword.USER_PASSWORD

@@ -82,7 +82,7 @@ components:
             - 記号（!@#$%^&*など）
           minLength: 10
           maxLength: 50
-          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]$'
+          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$'
           example: "Password123!"
       required:
         - loginId
