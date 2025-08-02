@@ -5,12 +5,11 @@ package com.example.daycare.infrastructure.jooq.tables.references
 
 
 import com.example.daycare.infrastructure.jooq.tables.ClassRoom
-import com.example.daycare.infrastructure.jooq.tables.Employee
-import com.example.daycare.infrastructure.jooq.tables.Guardian
 import com.example.daycare.infrastructure.jooq.tables.JwtToken
+import com.example.daycare.infrastructure.jooq.tables.Password
 import com.example.daycare.infrastructure.jooq.tables.Student
 import com.example.daycare.infrastructure.jooq.tables.StudentGuardian
-import com.example.daycare.infrastructure.jooq.tables.UserPassword
+import com.example.daycare.infrastructure.jooq.tables.User
 
 
 
@@ -20,19 +19,14 @@ import com.example.daycare.infrastructure.jooq.tables.UserPassword
 val CLASS_ROOM: ClassRoom = ClassRoom.CLASS_ROOM
 
 /**
- * 保育園の職員情報を管理するテーブル
- */
-val EMPLOYEE: Employee = Employee.EMPLOYEE
-
-/**
- * 保育園の保護者情報を管理するテーブル
- */
-val GUARDIAN: Guardian = Guardian.GUARDIAN
-
-/**
  * JWTトークンの管理テーブル
  */
 val JWT_TOKEN: JwtToken = JwtToken.JWT_TOKEN
+
+/**
+ * ユーザー（職員・保護者）のパスワード情報を管理するテーブル
+ */
+val PASSWORD: Password = Password.PASSWORD
 
 /**
  * 保育園の園児情報を管理するテーブル
@@ -45,6 +39,6 @@ val STUDENT: Student = Student.STUDENT
 val STUDENT_GUARDIAN: StudentGuardian = StudentGuardian.STUDENT_GUARDIAN
 
 /**
- * ユーザー（職員・保護者）のパスワード情報を管理するテーブル
+ * ユーザー（職員・保護者）の基本情報を管理するテーブル
  */
-val USER_PASSWORD: UserPassword = UserPassword.USER_PASSWORD
+val USER: User = User.USER
