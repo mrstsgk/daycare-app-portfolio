@@ -1,6 +1,5 @@
 package com.example.daycare.presentation.model
 
-import com.example.daycare.presentation.model.UserSummary
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -13,22 +12,17 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * Firebase認証ログインレスポンス
- * @param success ログイン成功フラグ
- * @param message メッセージ
- * @param user 
+ * ユーザー情報の概要
+ * @param id ユーザーID
+ * @param name ユーザー名
  */
-data class LoginResponseModel(
+data class UserSummary(
 
     @field:NotNull
-    @get:JsonProperty("success") val success: kotlin.Boolean,
+    @get:JsonProperty("id") val id: kotlin.Int,
 
     @field:NotNull
-    @get:JsonProperty("message") val message: kotlin.String,
-
-    @field:Valid
-    @field:NotNull
-    @get:JsonProperty("user") val user: UserSummary
+    @get:JsonProperty("name") val name: kotlin.String
     ) {
 
 }

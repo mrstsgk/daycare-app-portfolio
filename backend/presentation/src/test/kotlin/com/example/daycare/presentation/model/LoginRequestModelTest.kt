@@ -6,146 +6,146 @@ import io.kotest.matchers.shouldNotBe
 import jakarta.validation.Validation
 import jakarta.validation.Validator
 
-class LoginRequestModelTest : DescribeSpec({
+class LoginRequestModelTest : DescribeSpec() {
+    
+    private val validatorFactory = Validation.buildDefaultValidatorFactory()
+    private val validator: Validator = validatorFactory.validator
 
-    val validator: Validator = Validation.buildDefaultValidatorFactory().validator
+    init {
+        describe("Firebase認証ログインリクエストモデル") {
 
-    describe("ログインリクエストモデル") {
+            describe("有効なデータ") {
+                it("有効なIDトークンでインスタンスを生成できること") {
+                    val validToken =
+                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
+                    val model = LoginRequestModel(validToken)
 
-        describe("有効なデータ") {
-            it("有効なログインIDとパスワードでインスタンスを生成できること") {
-                val model = LoginRequestModel(
-                    loginId = "testUser123",
-                    password = "ValidPass123!"
-                )
+                    model.idToken shouldBe validToken
+                }
 
-                model.loginId shouldBe "testUser123"
-                model.password shouldBe "ValidPass123!"
+                it("最小長（10文字）のIDトークンでインスタンスを生成できること") {
+                    val minLengthToken = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthToken)
+
+                    model.idToken shouldBe minLengthToken
+                }
+
+                it("最大長（255文字）のIDトークンでインスタンスを生成できること") {
+                    val maxLengthToken = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthToken)
+
+                    model.idToken shouldBe maxLengthToken
+                }
+
+                it("有効なJWT形式のIDトークンでインスタンスを生成できること") {
+                    val jwtToken =
+                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
+                    val model = LoginRequestModel(jwtToken)
+
+                    model.idToken shouldBe jwtToken
+                }
+
             }
 
-            it("有効なデータでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "SecurePass1!"
-                )
+            describe("IDトークンの基本的なプロパティ検証") {
+                it("短いIDトークンでモデルが生成されること") {
+                    val shortToken = "123456789" // 9文字
+                    val model = LoginRequestModel(shortToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
-            }
-        }
+                    model.idToken shouldBe shortToken
+                }
 
-        describe("ログインIDのバリデーション") {
-            it("ログインIDが空文字の場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "",
-                    password = "ValidPass123!"
-                )
+                it("長いIDトークンでモデルが生成されること") {
+                    val longToken = "a".repeat(256)
+                    val model = LoginRequestModel(longToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe longToken
+                }
 
-            it("ログインIDに特殊文字が含まれる場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user@123",
-                    password = "ValidPass123!"
-                )
+                it("空文字列のIDトークンでモデルが生成されること") {
+                    val emptyToken = ""
+                    val model = LoginRequestModel(emptyToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe emptyToken
+                }
 
-            it("ログインIDが最大文字数を超える場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "a".repeat(51),
-                    password = "ValidPass123!"
-                )
+                it("ブランク文字列のIDトークンでモデルが生成されること") {
+                    val blankToken = "   " // 3つのスペース
+                    val model = LoginRequestModel(blankToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe blankToken
+                    model.idToken.isBlank() shouldBe true
+                }
 
-            it("英数字のログインIDでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "User123",
-                    password = "ValidPass123!"
-                )
+                it("10文字のIDトークンでモデルが生成されること") {
+                    val minLengthToken = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
-            }
-        }
+                    model.idToken shouldBe minLengthToken
+                }
 
-        describe("パスワードのバリデーション") {
-            it("パスワードが短すぎる場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "Short1!"
-                )
+                it("255文字のIDトークンでモデルが生成されること") {
+                    val maxLengthToken = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
+                    model.idToken shouldBe maxLengthToken
+                }
+
+                it("JWT形式のIDトークンでモデルが生成されること") {
+                    val jwtToken =
+                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
+                    val model = LoginRequestModel(jwtToken)
+
+                    model.idToken shouldBe jwtToken
+                    model.idToken.contains(".") shouldBe true
+                }
             }
 
-            it("パスワードに大文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "lowercase123!"
-                )
+            describe("バリデーションエラーが期待されるケース") {
+                it("最小長未満（9文字）のIDトークンは制約に違反すること") {
+                    val shortToken = "123456789" // 9文字
+                    val model = LoginRequestModel(shortToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe shortToken
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                }
 
-            it("パスワードに小文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "UPPERCASE123!"
-                )
+                it("最大長超過（256文字）のIDトークンは制約に違反すること") {
+                    val longToken = "a".repeat(256) // 256文字
+                    val model = LoginRequestModel(longToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe longToken
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                }
 
-            it("パスワードに数字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "NoDigitsHere!"
-                )
+                it("空文字列のIDトークンは制約に違反すること") {
+                    val emptyToken = ""
+                    val model = LoginRequestModel(emptyToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.idToken shouldBe emptyToken
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                }
 
-            it("パスワードに特殊文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "NoSpecialChar123"
-                )
+                it("有効な範囲のIDトークンはバリデーションエラーが発生しないこと") {
+                    val validToken = "1234567890" // 10文字（最小長）
+                    val model = LoginRequestModel(validToken)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
-
-            it("パスワードが最大文字数を超える場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "VeryLongPassword123!".repeat(3)
-                )
-
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
-
-            it("複雑な有効パスワードでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "Complex123!@#"
-                )
-
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
+                    val violations = validator.validate(model)
+                    violations.size shouldBe 0
+                }
             }
         }
     }
-})
+}

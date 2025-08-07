@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Daycare Management API
-  description: 保育園管理システムのAPI仕様書
+  description: スマ登園のAPI仕様書
   version: 1.0.0
 
 servers:
@@ -11,8 +11,8 @@ servers:
 paths:
   /api/login:
     post:
-      summary: ログイン
-      description: ログインIDとパスワードで認証し、JWTトークンを返します
+      summary: Firebase認証後のログイン
+      description: Firebaseの「メールアドレス」と「IDトークン」で認証し、ユーザー情報を返します
       operationId: login
       tags:
         - Auth
@@ -31,73 +31,37 @@ paths:
                 $ref: "#/components/schemas/LoginResponseModel"
         "401":
           $ref: "error.yaml#/components/responses/UnauthorizedError"
-        "423":
-          $ref: "error.yaml#/components/responses/AccountLockedError"
-        "500":
-          $ref: "error.yaml#/components/responses/InternalServerError"
 
 components:
   schemas:
     LoginRequestModel:
       type: object
-      description: ログインリクエスト
+      description: Firebase認証ログインリクエスト
       properties:
-        loginId:
+        idToken:
           type: string
-          description: ログインID（ユーザーのコード）- 英数文字のみ入力可能
-          minLength: 1
-          maxLength: 50
-          pattern: '^[A-Za-z0-9]+$'
-          example: "sampleUser123"
-        password:
-          type: string
-          format: password
-          description: |
-            パスワード（10文字以上50文字以下）
-            以下の文字種を最低1文字ずつ含む必要があります：
-            - 英大文字（A-Z）
-            - 英小文字（a-z）
-            - 数字（0-9）
-            - 記号（!@#$%^&*など）
+          description: FirebaseのIDトークン
+          example: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2N..."
           minLength: 10
-          maxLength: 50
-          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$'
-          example: "Password123!"
+          maxLength: 255
       required:
-        - loginId
-        - password
+        - idToken
 
     LoginResponseModel:
       type: object
-      description: ログインレスポンス
+      description: Firebase認証ログインレスポンス
       properties:
-        isSuccess:
+        success:
           type: boolean
           description: ログイン成功フラグ
           example: true
-        token:
+        message:
           type: string
-          description: JWTトークン
-          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-        userId:
-          type: integer
-          format: int64
-          description: ユーザーID
-          example: 1
-        userName:
-          type: string
-          description: ユーザー名
-          example: "田中 太郎"
-        userType:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 1
-          description: ユーザータイプ（0：保護者,  1：教員）
-          example: 1
+          description: メッセージ
+          example: "ログインが成功しました"
+        user:
+          $ref: "summaries.yaml#/components/schemas/UserSummary"
       required:
-        - isSuccess
-        - token
-        - userId
-        - userName
-        - userType
+        - success
+        - message
+        - user
