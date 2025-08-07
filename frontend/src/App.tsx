@@ -32,6 +32,8 @@ function App() {
   const handleLogin = async (email: string, password: string) => {
     const result = await login({ email, password });
     if (!result.success) {
+      // 本番環境では適切なエラーハンドリングに置き換える
+      // eslint-disable-next-line no-console
       console.error("ログインエラー:", result.error);
     }
   };
@@ -39,11 +41,15 @@ function App() {
   const handleLogout = async () => {
     const result = await logout();
     if (!result.success) {
+      // 本番環境では適切なエラーハンドリングに置き換える
+      // eslint-disable-next-line no-console
       console.error("ログアウトエラー:", result.error);
     }
   };
 
   const handleNavigate = (path: string) => {
+    // 本番環境では適切なナビゲーション処理に置き換える
+    // eslint-disable-next-line no-console
     console.log(`${path}への遷移が実行されました`);
   };
 

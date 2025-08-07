@@ -12,7 +12,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     height: 100vh;
@@ -32,7 +32,7 @@
   max-height: calc(100vh - 8px);
   overflow-y: auto;
   margin: 0;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     padding: 8px;
@@ -41,7 +41,7 @@
     border-radius: 8px;
     max-height: calc(100dvh - 4px);
   }
-  
+
   // より小さい画面
   @media (max-width: 360px) {
     padding: 6px;
@@ -55,13 +55,13 @@
   margin-bottom: 4px;
   font-size: 20px;
   font-weight: 600;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     font-size: 18px;
     margin-bottom: 2px;
   }
-  
+
   @media (max-width: 360px) {
     font-size: 16px;
   }
@@ -73,13 +73,13 @@
   margin-bottom: 16px;
   font-size: 14px;
   font-weight: 400;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     font-size: 13px;
     margin-bottom: 12px;
   }
-  
+
   @media (max-width: 360px) {
     font-size: 12px;
     margin-bottom: 10px;
@@ -88,7 +88,7 @@
 
 .inputGroup {
   margin-bottom: 12px;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     margin-bottom: 8px;
@@ -100,7 +100,7 @@
     color: #333;
     font-weight: 500;
     font-size: 14px;
-    
+
     // 縦画面（モバイル）対応
     @media (max-width: 480px) {
       font-size: 13px;
@@ -116,8 +116,8 @@
     font-size: 16px;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
-    
-    // 縦画面（モバイル）対応  
+
+    // 縦画面（モバイル）対応
     @media (max-width: 480px) {
       padding: 6px;
       font-size: 16px; // iOSでズームインしないように16px以上を維持
@@ -166,7 +166,9 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   margin-top: 4px;
 
   &:hover:not(:disabled) {
@@ -185,36 +187,36 @@
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid #e1e1e1;
-  
+
   // 縦画面（モバイル）対応
   @media (max-width: 480px) {
     margin-top: 6px;
     padding-top: 6px;
   }
-  
+
   @media (max-width: 360px) {
     margin-top: 4px;
     padding-top: 4px;
   }
-  
+
   p {
     color: #666;
     font-size: 10px;
     line-height: 1.2;
     margin-bottom: 2px;
     text-align: center;
-    
+
     // 縦画面（モバイル）対応
     @media (max-width: 480px) {
       font-size: 9px;
       margin-bottom: 1px;
     }
-    
+
     &:first-child {
       font-weight: 500;
       color: #555;
     }
-    
+
     &:last-child {
       font-weight: 500;
       color: #555;
