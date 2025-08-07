@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useFirebaseAuth } from "./hooks/useFirebaseAuth";
+import { LoginForm } from "./components/LoginForm";
 import Header from "./components/Header";
 import NoticeBoard from "./components/NoticeBoard";
 import Dashboard from "./components/Dashboard";
 import styles from "./App.module.scss";
 
 function App() {
-  const [userName] = useState("田中 太郎"); // TODO: 実際の実装では認証情報から取得
+  const { user, loading, error, login, logout } = useFirebaseAuth();
 
   // Note: バックエンドでの実装はしないのでサンプルのお知らせデータを表示
   const [notices] = useState([
@@ -27,17 +29,40 @@ function App() {
     },
   ]);
 
-  const handleLogout = () => {
-    // TODO: ログアウト処理の実装
-    console.log("ログアウトが実行されました");
-    // 実際の実装では認証状態をクリアしてログイン画面に遷移
+  const handleLogin = async (email: string, password: string) => {
+    const result = await login({ email, password });
+    if (!result.success) {
+      console.error("ログインエラー:", result.error);
+    }
+  };
+
+  const handleLogout = async () => {
+    const result = await logout();
+    if (!result.success) {
+      console.error("ログアウトエラー:", result.error);
+    }
   };
 
   const handleNavigate = (path: string) => {
-    // TODO: ナビゲーション処理の実装
     console.log(`${path}への遷移が実行されました`);
-    // 実際の実装ではReact Routerなどを使用してページ遷移
   };
+
+  // ローディング中の表示
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loading}>読み込み中...</div>
+      </div>
+    );
+  }
+
+  // 未認証の場合はログインフォームを表示
+  if (!user) {
+    return <LoginForm onLogin={handleLogin} loading={loading} error={error} />;
+  }
+
+  // 認証済みの場合はメインアプリケーションを表示
+  const userName = user.displayName || user.email || "ユーザー";
 
   return (
     <div className={styles.app}>

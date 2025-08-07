@@ -15,7 +15,7 @@ class OpenApiCustomizer {
             .info(
                 Info()
                     .title("Daycare Management API")
-                    .description("保育園管理システムのAPI仕様書")
+                    .description("スマ登園のAPI仕様書")
                     .version("1.0.0")
             )
             .addServersItem(

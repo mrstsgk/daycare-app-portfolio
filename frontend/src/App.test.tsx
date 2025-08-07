@@ -1,32 +1,49 @@
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import {render, screen} from "@testing-library/react";
+import {beforeEach, describe, expect, it, vi} from "vitest";
 import App from "./App";
+import * as firebaseAuth from "./hooks/useFirebaseAuth";
 
 describe("App", () => {
-  it("renders main components correctly", () => {
-    render(<App />);
+    beforeEach(() => {
+        // useFirebaseAuthフックをモック
+        vi.spyOn(firebaseAuth, 'useFirebaseAuth').mockReturnValue({
+            user: {
+                uid: 'test-uid',
+                email: 'sasaki@example.com',
+                displayName: '田中 太郎',
+                emailVerified: true
+            } as any,
+            loading: false,
+            error: null,
+            login: vi.fn(),
+            logout: vi.fn()
+        });
+    });
 
-    // ヘッダーコンポーネントが表示されることを確認
-    expect(screen.getByText("スマ登園")).toBeInTheDocument();
-    expect(screen.getByText("田中 太郎さん")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "ログアウト" })
-    ).toBeInTheDocument();
+    it("renders main components correctly", () => {
+        render(<App/>);
 
-    // お知らせボードが表示されることを確認
-    expect(screen.getByText("重要なお知らせ")).toBeInTheDocument();
-    expect(screen.getByText("運動会のお知らせ")).toBeInTheDocument();
-    expect(screen.getByText("システムメンテナンス")).toBeInTheDocument();
+        // ヘッダーコンポーネントが表示されることを確認
+        expect(screen.getByText("スマ登園")).toBeInTheDocument();
+        expect(screen.getByText("田中 太郎さん")).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "ログアウト"})
+        ).toBeInTheDocument();
 
-    // ダッシュボードが表示されることを確認
-    expect(screen.getByText("機能一覧")).toBeInTheDocument();
-    expect(screen.getByText("登園・降園")).toBeInTheDocument();
-    expect(screen.getByText("出勤・退勤")).toBeInTheDocument();
-    expect(screen.getByText("連絡帳作成")).toBeInTheDocument();
-    expect(screen.getByText("日案作成")).toBeInTheDocument();
+        // お知らせボードが表示されることを確認
+        expect(screen.getByText("重要なお知らせ")).toBeInTheDocument();
+        expect(screen.getByText("運動会のお知らせ")).toBeInTheDocument();
+        expect(screen.getByText("システムメンテナンス")).toBeInTheDocument();
 
-    // すべての「開く」ボタンが表示されることを確認
-    const openButtons = screen.getAllByRole("button", { name: "開く" });
-    expect(openButtons).toHaveLength(4);
-  });
+        // ダッシュボードが表示されることを確認
+        expect(screen.getByText("機能一覧")).toBeInTheDocument();
+        expect(screen.getByText("登園・降園")).toBeInTheDocument();
+        expect(screen.getByText("出勤・退勤")).toBeInTheDocument();
+        expect(screen.getByText("連絡帳作成")).toBeInTheDocument();
+        expect(screen.getByText("日案作成")).toBeInTheDocument();
+
+        // すべての「開く」ボタンが表示されることを確認
+        const openButtons = screen.getAllByRole("button", {name: "開く"});
+        expect(openButtons).toHaveLength(4);
+    });
 });
