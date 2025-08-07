@@ -37,6 +37,7 @@ val STUDENT_GUARDIAN_PKEY: UniqueKey<StudentGuardianRecord> = Internal.createUni
 val STUDENT_GUARDIAN_STUDENT_ID_GUARDIAN_ID_KEY: UniqueKey<StudentGuardianRecord> = Internal.createUniqueKey(StudentGuardian.STUDENT_GUARDIAN, DSL.name("student_guardian_student_id_guardian_id_key"), arrayOf(StudentGuardian.STUDENT_GUARDIAN.STUDENT_ID, StudentGuardian.STUDENT_GUARDIAN.GUARDIAN_ID), true)
 val USER_CODE_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_code_key"), arrayOf(User.USER.CODE), true)
 val USER_EMAIL_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_email_key"), arrayOf(User.USER.EMAIL), true)
+val USER_FIREBASE_UID_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_firebase_uid_key"), arrayOf(User.USER.FIREBASE_UID), true)
 val USER_PKEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), arrayOf(User.USER.ID), true)
 
 // -------------------------------------------------------------------------
