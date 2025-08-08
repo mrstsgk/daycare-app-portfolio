@@ -1,6 +1,6 @@
 package com.example.daycare.presentation.model
 
-import com.example.daycare.presentation.model.UserSummary
+import com.example.daycare.presentation.model.UserSummaryModel
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -27,8 +27,7 @@ data class LoginResponseModel(
     @get:JsonProperty("message") val message: kotlin.String,
 
     @field:Valid
-    @field:NotNull
-    @get:JsonProperty("user") val user: UserSummary
+    @get:JsonProperty("user") val user: UserSummaryModel? = null
     ) {
 
 }

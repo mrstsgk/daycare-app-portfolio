@@ -15,132 +15,129 @@ class LoginRequestModelTest : DescribeSpec() {
         describe("Firebase認証ログインリクエストモデル") {
 
             describe("有効なデータ") {
-                it("有効なIDトークンでインスタンスを生成できること") {
-                    val validToken =
-                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
-                    val model = LoginRequestModel(validToken)
+                it("有効なlocalIdでインスタンスを生成できること") {
+                    val validLocalId = "abcd1234efgh5678ijkl9012mnop3456"
+                    val model = LoginRequestModel(validLocalId)
 
-                    model.idToken shouldBe validToken
+                    model.localId shouldBe validLocalId
                 }
 
-                it("最小長（10文字）のIDトークンでインスタンスを生成できること") {
-                    val minLengthToken = "1234567890" // 10文字
-                    val model = LoginRequestModel(minLengthToken)
+                it("最小長（10文字）のlocalIdでインスタンスを生成できること") {
+                    val minLengthLocalId = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthLocalId)
 
-                    model.idToken shouldBe minLengthToken
+                    model.localId shouldBe minLengthLocalId
                 }
 
-                it("最大長（255文字）のIDトークンでインスタンスを生成できること") {
-                    val maxLengthToken = "a".repeat(255)
-                    val model = LoginRequestModel(maxLengthToken)
+                it("最大長（255文字）のlocalIdでインスタンスを生成できること") {
+                    val maxLengthLocalId = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthLocalId)
 
-                    model.idToken shouldBe maxLengthToken
+                    model.localId shouldBe maxLengthLocalId
                 }
 
-                it("有効なJWT形式のIDトークンでインスタンスを生成できること") {
-                    val jwtToken =
-                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
-                    val model = LoginRequestModel(jwtToken)
+                it("有効なlocalIdでインスタンスを生成できること") {
+                    val localId = "firebase_localid_example_123"
+                    val model = LoginRequestModel(localId)
 
-                    model.idToken shouldBe jwtToken
+                    model.localId shouldBe localId
                 }
 
             }
 
-            describe("IDトークンの基本的なプロパティ検証") {
-                it("短いIDトークンでモデルが生成されること") {
-                    val shortToken = "123456789" // 9文字
-                    val model = LoginRequestModel(shortToken)
+            describe("localIdの基本的なプロパティ検証") {
+                it("短いlocalIdでモデルが生成されること") {
+                    val shortLocalId = "123456789" // 9文字
+                    val model = LoginRequestModel(shortLocalId)
 
-                    model.idToken shouldBe shortToken
+                    model.localId shouldBe shortLocalId
                 }
 
-                it("長いIDトークンでモデルが生成されること") {
-                    val longToken = "a".repeat(256)
-                    val model = LoginRequestModel(longToken)
+                it("長いlocalIdでモデルが生成されること") {
+                    val longLocalId = "a".repeat(256)
+                    val model = LoginRequestModel(longLocalId)
 
-                    model.idToken shouldBe longToken
+                    model.localId shouldBe longLocalId
                 }
 
-                it("空文字列のIDトークンでモデルが生成されること") {
-                    val emptyToken = ""
-                    val model = LoginRequestModel(emptyToken)
+                it("空文字列のlocalIdでモデルが生成されること") {
+                    val emptyLocalId = ""
+                    val model = LoginRequestModel(emptyLocalId)
 
-                    model.idToken shouldBe emptyToken
+                    model.localId shouldBe emptyLocalId
                 }
 
-                it("ブランク文字列のIDトークンでモデルが生成されること") {
-                    val blankToken = "   " // 3つのスペース
-                    val model = LoginRequestModel(blankToken)
+                it("ブランク文字列のlocalIdでモデルが生成されること") {
+                    val blankLocalId = "   " // 3つのスペース
+                    val model = LoginRequestModel(blankLocalId)
 
-                    model.idToken shouldBe blankToken
-                    model.idToken.isBlank() shouldBe true
+                    model.localId shouldBe blankLocalId
+                    model.localId.isBlank() shouldBe true
                 }
 
-                it("10文字のIDトークンでモデルが生成されること") {
-                    val minLengthToken = "1234567890" // 10文字
-                    val model = LoginRequestModel(minLengthToken)
+                it("10文字のlocalIdでモデルが生成されること") {
+                    val minLengthLocalId = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthLocalId)
 
-                    model.idToken shouldBe minLengthToken
+                    model.localId shouldBe minLengthLocalId
                 }
 
-                it("255文字のIDトークンでモデルが生成されること") {
-                    val maxLengthToken = "a".repeat(255)
-                    val model = LoginRequestModel(maxLengthToken)
+                it("255文字のlocalIdでモデルが生成されること") {
+                    val maxLengthLocalId = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthLocalId)
 
-                    model.idToken shouldBe maxLengthToken
+                    model.localId shouldBe maxLengthLocalId
                 }
 
-                it("JWT形式のIDトークンでモデルが生成されること") {
-                    val jwtToken =
-                        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2Ng.eyJ1c2VyX2lkIjoiMTIzIiwiaWF0IjoxNjMwMDAwMDAwfQ.signature123abc"
-                    val model = LoginRequestModel(jwtToken)
+                it("Firebase形式のlocalIdでモデルが生成されること") {
+                    val firebaseLocalId = "firebase_uid_example_123456789"
+                    val model = LoginRequestModel(firebaseLocalId)
 
-                    model.idToken shouldBe jwtToken
-                    model.idToken.contains(".") shouldBe true
+                    model.localId shouldBe firebaseLocalId
+                    model.localId.length shouldBe 30
                 }
             }
 
             describe("バリデーションエラーが期待されるケース") {
-                it("最小長未満（9文字）のIDトークンは制約に違反すること") {
-                    val shortToken = "123456789" // 9文字
-                    val model = LoginRequestModel(shortToken)
+                it("最小長未満（9文字）のlocalIdは制約に違反すること") {
+                    val shortLocalId = "123456789" // 9文字
+                    val model = LoginRequestModel(shortLocalId)
 
-                    model.idToken shouldBe shortToken
+                    model.localId shouldBe shortLocalId
                     
                     // Bean Validationを使用して制約違反を検証
                     val violations = validator.validate(model)
                     violations.size shouldNotBe 0
-                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
                 }
 
-                it("最大長超過（256文字）のIDトークンは制約に違反すること") {
-                    val longToken = "a".repeat(256) // 256文字
-                    val model = LoginRequestModel(longToken)
+                it("最大長超過（256文字）のlocalIdは制約に違反すること") {
+                    val longLocalId = "a".repeat(256) // 256文字
+                    val model = LoginRequestModel(longLocalId)
 
-                    model.idToken shouldBe longToken
+                    model.localId shouldBe longLocalId
                     
                     // Bean Validationを使用して制約違反を検証
                     val violations = validator.validate(model)
                     violations.size shouldNotBe 0
-                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
                 }
 
-                it("空文字列のIDトークンは制約に違反すること") {
-                    val emptyToken = ""
-                    val model = LoginRequestModel(emptyToken)
+                it("空文字列のlocalIdは制約に違反すること") {
+                    val emptyLocalId = ""
+                    val model = LoginRequestModel(emptyLocalId)
 
-                    model.idToken shouldBe emptyToken
+                    model.localId shouldBe emptyLocalId
                     
                     // Bean Validationを使用して制約違反を検証
                     val violations = validator.validate(model)
                     violations.size shouldNotBe 0
-                    violations.any { it.propertyPath.toString() == "idToken" } shouldBe true
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
                 }
 
-                it("有効な範囲のIDトークンはバリデーションエラーが発生しないこと") {
-                    val validToken = "1234567890" // 10文字（最小長）
-                    val model = LoginRequestModel(validToken)
+                it("有効な範囲のlocalIdはバリデーションエラーが発生しないこと") {
+                    val validLocalId = "1234567890" // 10文字（最小長）
+                    val model = LoginRequestModel(validLocalId)
 
                     val violations = validator.validate(model)
                     violations.size shouldBe 0

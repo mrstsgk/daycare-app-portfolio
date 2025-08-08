@@ -5,8 +5,6 @@ package com.example.daycare.infrastructure.jooq.tables.references
 
 
 import com.example.daycare.infrastructure.jooq.tables.ClassRoom
-import com.example.daycare.infrastructure.jooq.tables.JwtToken
-import com.example.daycare.infrastructure.jooq.tables.Password
 import com.example.daycare.infrastructure.jooq.tables.Student
 import com.example.daycare.infrastructure.jooq.tables.StudentGuardian
 import com.example.daycare.infrastructure.jooq.tables.User
@@ -17,16 +15,6 @@ import com.example.daycare.infrastructure.jooq.tables.User
  * 保育園のクラス情報を管理するテーブル
  */
 val CLASS_ROOM: ClassRoom = ClassRoom.CLASS_ROOM
-
-/**
- * JWTトークンの管理テーブル
- */
-val JWT_TOKEN: JwtToken = JwtToken.JWT_TOKEN
-
-/**
- * ユーザー（職員・保護者）のパスワード情報を管理するテーブル
- */
-val PASSWORD: Password = Password.PASSWORD
 
 /**
  * 保育園の園児情報を管理するテーブル
