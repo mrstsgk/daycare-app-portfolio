@@ -26,5 +26,7 @@ export default defineConfig({
   },
   define: {
     global: "globalThis",
+    // Firebase compatibility
+    "process.env": {},
   },
 });
