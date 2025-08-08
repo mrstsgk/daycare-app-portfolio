@@ -12,7 +12,7 @@ paths:
   /api/login:
     post:
       summary: Firebase認証後のログイン
-      description: Firebaseの「メールアドレス」と「IDトークン」で認証し、ユーザー情報を返します
+      description: FirebaseのlocalId（uid）を使用してユーザー情報を返します
       operationId: login
       tags:
         - Auth
@@ -30,7 +30,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/LoginResponseModel"
         "401":
-          $ref: "error.yaml#/components/responses/UnauthorizedError"
+          $ref: "error.yaml#/components/responses/UnauthorizedErrorModel"
 
 components:
   schemas:
@@ -38,14 +38,14 @@ components:
       type: object
       description: Firebase認証ログインリクエスト
       properties:
-        idToken:
+        localId:
           type: string
-          description: FirebaseのIDトークン
-          example: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2N..."
+          description: FirebaseのlocalId（uid）
+          example: "abcd1234efgh5678ijkl9012mnop3456"
           minLength: 10
           maxLength: 255
       required:
-        - idToken
+        - localId
 
     LoginResponseModel:
       type: object
@@ -60,8 +60,7 @@ components:
           description: メッセージ
           example: "ログインが成功しました"
         user:
-          $ref: "summaries.yaml#/components/schemas/UserSummary"
+          $ref: "summaries.yaml#/components/schemas/UserSummaryModel"
       required:
         - success
         - message
-        - user

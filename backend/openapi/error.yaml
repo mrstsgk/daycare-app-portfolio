@@ -6,23 +6,23 @@ info:
 
 components:
   responses:
-    UnauthorizedError:
+    UnauthorizedErrorModel:
       description: 認証失敗
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UnauthorizedErrorResponse"
+            $ref: "#/components/schemas/UnauthorizedErrorResponseModel"
 
   schemas:
-    UnauthorizedErrorResponse:
+    UnauthorizedErrorResponseModel:
       type: object
       properties:
         error:
           type: array
           items:
-            $ref: "#/components/schemas/ApiError"
+            $ref: "#/components/schemas/ApiErrorModel"
 
-    ApiError:
+    ApiErrorModel:
       type: object
       properties:
         name:
