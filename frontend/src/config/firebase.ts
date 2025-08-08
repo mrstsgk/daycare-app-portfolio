@@ -14,7 +14,9 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 
-// Initialize Analytics
-export const analytics = getAnalytics(app);
+// Initialize Analytics (only in production and when supported)
+export const analytics = typeof window !== 'undefined' && import.meta.env.MODE === 'production' 
+  ? getAnalytics(app) 
+  : null;
 
 export default app;

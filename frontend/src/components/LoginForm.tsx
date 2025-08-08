@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 import styles from "./LoginForm.module.scss";
 
 interface LoginFormData {
@@ -28,6 +30,36 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
   const onSubmit = async (data: LoginFormData) => {
     await onLogin(data.email, data.password);
+  };
+
+  const createTestUser = async () => {
+    try {
+      console.log("🔨 Firebase新規ユーザー作成開始...");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        "sasaki@example.com",
+        "password123"
+      );
+
+      const uid = userCredential.user.uid;
+      console.log("✅ Firebase新規ユーザー作成成功！");
+      console.log("📧 Email:", userCredential.user.email);
+      console.log("🆔 Firebase UID:", uid);
+      console.log("💾 このUIDをデータベースに登録してください:", uid);
+
+      alert(
+        `Firebase新規ユーザー作成成功！\n\nUID: ${uid}\n\nこのUIDをコピーして、開発者ツールのコンソールログで確認してください。`
+      );
+    } catch (error: any) {
+      console.error("❌ Firebase新規ユーザー作成エラー:", error);
+      if (error.code === "auth/email-already-in-use") {
+        alert(
+          "このメールアドレスは既に登録されています。ログインを試してください。"
+        );
+      } else {
+        alert(`エラー: ${error.message}`);
+      }
+    }
   };
 
   return (
@@ -93,6 +125,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <p>メールアドレス: sasaki@example.com</p>
           <p>パスワード: password123</p>
           <p>※デモ用のテストアカウントです</p>
+          <br />
+          <button
+            type="button"
+            onClick={() => createTestUser()}
+            className={styles.createUserButton}
+            disabled={loading}
+          >
+            テストユーザー作成 (Firebase)
+          </button>
         </div>
       </form>
     </div>

@@ -224,3 +224,38 @@
     }
   }
 }
+
+.createUserButton {
+  width: 100%;
+  padding: 6px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 4px;
+
+  // 縦画面（モバイル）対応
+  @media (max-width: 480px) {
+    padding: 5px;
+    font-size: 11px;
+    margin-top: 3px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 4px;
+    font-size: 10px;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #218838;
+  }
+
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+}

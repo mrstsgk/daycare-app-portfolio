@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFirebaseAuth } from "./hooks/useFirebaseAuth";
+import { useAuth } from "./hooks/useAuth";
 import { LoginForm } from "./components/LoginForm";
 import Header from "./components/Header";
 import NoticeBoard from "./components/NoticeBoard";
@@ -7,7 +7,7 @@ import Dashboard from "./components/Dashboard";
 import styles from "./App.module.scss";
 
 function App() {
-  const { user, loading, error, login, logout } = useFirebaseAuth();
+  const { user, loading, error, isAuthenticated, login, logout } = useAuth();
 
   // Note: バックエンドでの実装はしないのでサンプルのお知らせデータを表示
   const [notices] = useState([
@@ -63,12 +63,12 @@ function App() {
   }
 
   // 未認証の場合はログインフォームを表示
-  if (!user) {
+  if (!isAuthenticated || !user) {
     return <LoginForm onLogin={handleLogin} loading={loading} error={error} />;
   }
 
-  // 認証済みの場合はメインアプリケーションを表示
-  const userName = user.displayName || user.email || "ユーザー";
+  // 認証済みの場合はメインアプリケーションを表示 - バックエンドのユーザー名を使用
+  const userName = user.name || "ユーザー";
 
   return (
     <div className={styles.app}>
