@@ -64,6 +64,7 @@ export const useAuth = () => {
             });
           } else {
             // Backend認証失敗: Firebaseからもログアウト
+            // eslint-disable-next-line no-console
             console.warn(
               "Backend authentication failed, logging out from Firebase"
             );
@@ -77,6 +78,7 @@ export const useAuth = () => {
             });
           }
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.error("Backend authentication error:", error);
           // エラー時もFirebaseからログアウト
           await signOut(auth);
@@ -153,6 +155,7 @@ export const useAuth = () => {
       if (isFirebaseError(error)) {
         errorMessage = getErrorMessage(error.code);
       } else if (error instanceof Error) {
+        // eslint-disable-next-line no-console
         console.error("Login error:", error.message);
         errorMessage = "ログイン処理中にエラーが発生しました";
       }
