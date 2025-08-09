@@ -43,7 +43,7 @@ function App() {
     }
   };
 
-  const handleNavigate = (path: string) => {
+  const handleNavigate = () => {
     // 本番環境では適切なナビゲーション処理に置き換える
   };
 

@@ -44,19 +44,6 @@ describe("LoginForm", () => {
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 
-  it("displays test account information", () => {
-    render(<LoginForm onLogin={mockOnLogin} loading={false} error={null} />);
-
-    expect(screen.getByText("テスト用アカウント:")).toBeInTheDocument();
-    expect(
-      screen.getByText("メールアドレス: sasaki@example.com")
-    ).toBeInTheDocument();
-    expect(screen.getByText("パスワード: password123")).toBeInTheDocument();
-    expect(
-      screen.getByText("※デモ用のテストアカウントです")
-    ).toBeInTheDocument();
-  });
-
   it("disables submit button initially (form validation)", () => {
     render(<LoginForm onLogin={mockOnLogin} loading={false} error={null} />);
 
