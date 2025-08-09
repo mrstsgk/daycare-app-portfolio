@@ -6,6 +6,7 @@ import com.example.daycare.presentation.model.UserSummaryModel
 import com.example.daycare.usecase.auth.LoginResult
 import com.example.daycare.usecase.auth.LoginUsecase
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -39,8 +40,7 @@ class LoginController(private val loginUsecase: LoginUsecase) {
                     message = "ユーザーの認証に失敗しました",
                     user = null,
                 )
-                @Suppress("MagicNumber") // Note: import org.springframework.http.HttpStatusを参照するとbuildできないので一旦許容
-                ResponseEntity.status(401).body(response)
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response)
             }
         }
     }
