@@ -113,14 +113,7 @@ export const useAuth = () => {
             // 2. localIdを取得（uidがlocalIdに相当）
             const localId = userCredential.user.uid;
 
-            // デバッグ情報出力
-            console.log("🔥 Firebase認証成功！");
-            console.log("📧 Email:", userCredential.user.email);
-            console.log("🆔 Firebase UID (localId):", localId);
-            console.log("👤 Display Name:", userCredential.user.displayName);
-
             // 3. バックエンドでlocalIdを使って認証
-            console.log("🚀 バックエンドAPI呼び出し開始...");
             const backendResponse = await authApi.login(localId);
 
             if (backendResponse.success && backendResponse.user) {

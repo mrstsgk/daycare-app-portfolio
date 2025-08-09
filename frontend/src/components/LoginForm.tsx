@@ -44,7 +44,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
     const createTestUser = async () => {
         try {
-            console.log("🔨 Firebase新規ユーザー作成開始...");
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 "sasaki@example.com",
@@ -52,16 +51,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             );
 
             const uid = userCredential.user.uid;
-            console.log("✅ Firebase新規ユーザー作成成功！");
-            console.log("📧 Email:", userCredential.user.email);
-            console.log("🆔 Firebase UID:", uid);
-            console.log("💾 このUIDをデータベースに登録してください:", uid);
 
             alert(
                 `Firebase新規ユーザー作成成功！\n\nUID: ${uid}\n\nこのUIDをコピーして、開発者ツールのコンソールログで確認してください。`
             );
         } catch (error: unknown) {
-            console.error("❌ Firebase新規ユーザー作成エラー:", error);
 
             if (isFirebaseError(error)) {
                 if (error.code === "auth/email-already-in-use") {

@@ -5,9 +5,6 @@ const baseURL =
     ? ""
     : (import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080");
 
-console.log("🔧 DEBUG - API Base URL:", baseURL);
-console.log("🔧 DEBUG - Environment mode:", import.meta.env.MODE);
-console.log("🔧 DEBUG - VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 
 const apiClient = axios.create({
   baseURL,
@@ -56,7 +53,6 @@ export const authApi = {
         user?: UserSummaryDto;
       }>("/api/login", { localId });
 
-      console.log("🔍 Login response:", response.data);
 
       if (response.data.success && response.data.user) {
         return {
@@ -70,7 +66,6 @@ export const authApi = {
         };
       }
     } catch (error: any) {
-      console.error("🚨 Login API Error:", error);
       return {
         success: false,
         error: error.response?.data?.message || "ログインに失敗しました",
