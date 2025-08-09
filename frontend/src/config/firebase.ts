@@ -15,8 +15,9 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 // Initialize Analytics (only in production and when supported)
-export const analytics = typeof window !== 'undefined' && import.meta.env.MODE === 'production' 
-  ? getAnalytics(app) 
-  : null;
+export const analytics =
+  typeof window !== "undefined" && import.meta.env.MODE === "production"
+    ? getAnalytics(app)
+    : null;
 
 export default app;
