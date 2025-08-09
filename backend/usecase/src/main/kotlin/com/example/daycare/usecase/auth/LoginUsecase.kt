@@ -5,7 +5,7 @@ import com.example.daycare.usecase.user.UserSummaryDto
 
 class LoginUsecase(private val userQueryService: UserQueryService) {
     /**
-     * localIdからログインすrユーザーのサマリー情報を取得する
+     *  localIdからログインするユーザーのサマリー情報を取得する
      */
     fun execute(localId: String): LoginResult {
         if (localId.isBlank()) return LoginResult.UserNotFound
