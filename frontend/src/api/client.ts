@@ -40,7 +40,7 @@ const isAxiosError = (error: unknown): error is AxiosError => {
     return axios.isAxiosError(error);
 };
 
-// APIエラー���スポンスの型定義
+// APIエラーレスポンスの型定義
 interface ApiErrorResponse {
     message?: string;
     error?: string;

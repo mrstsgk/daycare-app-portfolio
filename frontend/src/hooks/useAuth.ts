@@ -187,7 +187,7 @@ export const useAuth = () => {
     const getErrorMessage = (errorCode: string): string => {
         switch (errorCode) {
             case "auth/user-not-found":
-                return "ユーザ��が見つかりません";
+                return "ユーザーが見つかりません";
             case "auth/wrong-password":
                 return "パスワードが間違っています";
             case "auth/invalid-email":
