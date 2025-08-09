@@ -66,7 +66,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
                     alert(`エラー: ${error.message}`);
                 }
             } else if (error instanceof Error) {
-                alert(`エラー: ${error.message}`);
+                alert(`��ラー: ${error.message}`);
             } else {
                 alert("予期しないエラーが発生しました");
             }
