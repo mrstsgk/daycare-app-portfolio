@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":usecase"))
     implementation("org.springframework:spring-context")
     implementation("org.springframework:spring-jdbc")
     implementation("org.jooq:jooq")

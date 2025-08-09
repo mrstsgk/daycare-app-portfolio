@@ -6,146 +6,143 @@ import io.kotest.matchers.shouldNotBe
 import jakarta.validation.Validation
 import jakarta.validation.Validator
 
-class LoginRequestModelTest : DescribeSpec({
+class LoginRequestModelTest : DescribeSpec() {
+    
+    private val validatorFactory = Validation.buildDefaultValidatorFactory()
+    private val validator: Validator = validatorFactory.validator
 
-    val validator: Validator = Validation.buildDefaultValidatorFactory().validator
+    init {
+        describe("Firebase認証ログインリクエストモデル") {
 
-    describe("ログインリクエストモデル") {
+            describe("有効なデータ") {
+                it("有効なlocalIdでインスタンスを生成できること") {
+                    val validLocalId = "abcd1234efgh5678ijkl9012mnop3456"
+                    val model = LoginRequestModel(validLocalId)
 
-        describe("有効なデータ") {
-            it("有効なログインIDとパスワードでインスタンスを生成できること") {
-                val model = LoginRequestModel(
-                    loginId = "testUser123",
-                    password = "ValidPass123!"
-                )
+                    model.localId shouldBe validLocalId
+                }
 
-                model.loginId shouldBe "testUser123"
-                model.password shouldBe "ValidPass123!"
+                it("最小長（10文字）のlocalIdでインスタンスを生成できること") {
+                    val minLengthLocalId = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthLocalId)
+
+                    model.localId shouldBe minLengthLocalId
+                }
+
+                it("最大長（255文字）のlocalIdでインスタンスを生成できること") {
+                    val maxLengthLocalId = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthLocalId)
+
+                    model.localId shouldBe maxLengthLocalId
+                }
+
+                it("有効なlocalIdでインスタンスを生成できること") {
+                    val localId = "firebase_localid_example_123"
+                    val model = LoginRequestModel(localId)
+
+                    model.localId shouldBe localId
+                }
+
             }
 
-            it("有効なデータでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "SecurePass1!"
-                )
+            describe("localIdの基本的なプロパティ検証") {
+                it("短いlocalIdでモデルが生成されること") {
+                    val shortLocalId = "123456789" // 9文字
+                    val model = LoginRequestModel(shortLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
-            }
-        }
+                    model.localId shouldBe shortLocalId
+                }
 
-        describe("ログインIDのバリデーション") {
-            it("ログインIDが空文字の場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "",
-                    password = "ValidPass123!"
-                )
+                it("長いlocalIdでモデルが生成されること") {
+                    val longLocalId = "a".repeat(256)
+                    val model = LoginRequestModel(longLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe longLocalId
+                }
 
-            it("ログインIDに特殊文字が含まれる場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user@123",
-                    password = "ValidPass123!"
-                )
+                it("空文字列のlocalIdでモデルが生成されること") {
+                    val emptyLocalId = ""
+                    val model = LoginRequestModel(emptyLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe emptyLocalId
+                }
 
-            it("ログインIDが最大文字数を超える場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "a".repeat(51),
-                    password = "ValidPass123!"
-                )
+                it("ブランク文字列のlocalIdでモデルが生成されること") {
+                    val blankLocalId = "   " // 3つのスペース
+                    val model = LoginRequestModel(blankLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe blankLocalId
+                    model.localId.isBlank() shouldBe true
+                }
 
-            it("英数字のログインIDでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "User123",
-                    password = "ValidPass123!"
-                )
+                it("10文字のlocalIdでモデルが生成されること") {
+                    val minLengthLocalId = "1234567890" // 10文字
+                    val model = LoginRequestModel(minLengthLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
-            }
-        }
+                    model.localId shouldBe minLengthLocalId
+                }
 
-        describe("パスワードのバリデーション") {
-            it("パスワードが短すぎる場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "Short1!"
-                )
+                it("255文字のlocalIdでモデルが生成されること") {
+                    val maxLengthLocalId = "a".repeat(255)
+                    val model = LoginRequestModel(maxLengthLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
+                    model.localId shouldBe maxLengthLocalId
+                }
+
+                it("Firebase形式のlocalIdでモデルが生成されること") {
+                    val firebaseLocalId = "firebase_uid_example_123456789"
+                    val model = LoginRequestModel(firebaseLocalId)
+
+                    model.localId shouldBe firebaseLocalId
+                    model.localId.length shouldBe 30
+                }
             }
 
-            it("パスワードに大文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "lowercase123!"
-                )
+            describe("バリデーションエラーが期待されるケース") {
+                it("最小長未満（9文字）のlocalIdは制約に違反すること") {
+                    val shortLocalId = "123456789" // 9文字
+                    val model = LoginRequestModel(shortLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe shortLocalId
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
+                }
 
-            it("パスワードに小文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "UPPERCASE123!"
-                )
+                it("最大長超過（256文字）のlocalIdは制約に違反すること") {
+                    val longLocalId = "a".repeat(256) // 256文字
+                    val model = LoginRequestModel(longLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe longLocalId
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
+                }
 
-            it("パスワードに数字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "NoDigitsHere!"
-                )
+                it("空文字列のlocalIdは制約に違反すること") {
+                    val emptyLocalId = ""
+                    val model = LoginRequestModel(emptyLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
+                    model.localId shouldBe emptyLocalId
+                    
+                    // Bean Validationを使用して制約違反を検証
+                    val violations = validator.validate(model)
+                    violations.size shouldNotBe 0
+                    violations.any { it.propertyPath.toString() == "localId" } shouldBe true
+                }
 
-            it("パスワードに特殊文字が含まれない場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "NoSpecialChar123"
-                )
+                it("有効な範囲のlocalIdはバリデーションエラーが発生しないこと") {
+                    val validLocalId = "1234567890" // 10文字（最小長）
+                    val model = LoginRequestModel(validLocalId)
 
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
-
-            it("パスワードが最大文字数を超える場合バリデーションエラーになること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "VeryLongPassword123!".repeat(3)
-                )
-
-                val violations = validator.validate(model)
-                violations.size shouldNotBe 0
-            }
-
-            it("複雑な有効パスワードでバリデーションが通ること") {
-                val model = LoginRequestModel(
-                    loginId = "user123",
-                    password = "Complex123!@#"
-                )
-
-                val violations = validator.validate(model)
-                violations.size shouldBe 0
+                    val violations = validator.validate(model)
+                    violations.size shouldBe 0
+                }
             }
         }
     }
-})
+}
