@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Daycare Management API Summaries
+  description: スマ登園のAPI共通スキーマ定義
+  version: 1.0.0
+
+components:
+  schemas:
+    UserSummaryModel:
+      type: object
+      description: ユーザー情報の概要
+      properties:
+        id:
+          type: integer
+          description: ユーザーID
+          example: 1
+        name:
+          type: string
+          description: ユーザー名
+          example: "サンプル太郎"
+      required:
+        - id
+        - name

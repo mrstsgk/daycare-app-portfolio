@@ -13,5 +13,7 @@ spring:
     clean-disabled: false
     clean-on-validation-error: false
     sql-migration-suffixes: .sql
+    placeholders:
+      admin.firebase_uid: ${ADMIN_FIREBASE_UID:null}
 server:
   port: 8080

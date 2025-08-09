@@ -9,20 +9,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-frontend/build/
-
-# Kotlin/Java
 .gradle/
-*.class
-*.jar
-!gradle/wrapper/gradle-wrapper.jar
-!backend/gradle/wrapper/gradle-wrapper.jar
-*.war
-*.ear
-
-# Spring Boot
-backend/target/
-
 # Backend build directories
 # すべてのbackendサブプロジェクトのbuildディレクトリを除外
 backend/build/
@@ -35,8 +22,28 @@ backend/infrastructure/build/
 # generated-srcは含める（JOOQで生成されるコード用）
 !backend/infrastructure/build/generated-src/
 
-# Mac OS
-.DS_Store
+# Test coverage
+coverage/
+*.lcov
+.nyc_output
 
-# Docker
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+
+# Environment variables and configuration files
 .env
+.env.local
+.env.production
+.env.development
+application-local.yml
+application-local.properties
+docker-compose.override.yml

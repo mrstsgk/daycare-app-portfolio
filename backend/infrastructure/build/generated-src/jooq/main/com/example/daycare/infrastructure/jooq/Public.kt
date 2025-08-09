@@ -5,8 +5,6 @@ package com.example.daycare.infrastructure.jooq
 
 
 import com.example.daycare.infrastructure.jooq.tables.ClassRoom
-import com.example.daycare.infrastructure.jooq.tables.JwtToken
-import com.example.daycare.infrastructure.jooq.tables.Password
 import com.example.daycare.infrastructure.jooq.tables.Student
 import com.example.daycare.infrastructure.jooq.tables.StudentGuardian
 import com.example.daycare.infrastructure.jooq.tables.User
@@ -37,16 +35,6 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     val CLASS_ROOM: ClassRoom get() = ClassRoom.CLASS_ROOM
 
     /**
-     * JWTトークンの管理テーブル
-     */
-    val JWT_TOKEN: JwtToken get() = JwtToken.JWT_TOKEN
-
-    /**
-     * ユーザー（職員・保護者）のパスワード情報を管理するテーブル
-     */
-    val PASSWORD: Password get() = Password.PASSWORD
-
-    /**
      * 保育園の園児情報を管理するテーブル
      */
     val STUDENT: Student get() = Student.STUDENT
@@ -65,8 +53,6 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
 
     override fun getTables(): List<Table<*>> = listOf(
         ClassRoom.CLASS_ROOM,
-        JwtToken.JWT_TOKEN,
-        Password.PASSWORD,
         Student.STUDENT,
         StudentGuardian.STUDENT_GUARDIAN,
         User.USER

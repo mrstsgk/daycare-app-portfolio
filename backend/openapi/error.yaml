@@ -5,68 +5,32 @@ info:
   version: 1.0.0
 
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      description: エラーレスポンス
-      properties:
-        isSuccess:
-          type: boolean
-          description: 成功フラグ（常にfalse）
-          example: false
-        message:
-          type: string
-          description: エラーメッセージ
-          example: "ログインIDまたはパスワードが間違っています"
-        errorCode:
-          type: string
-          description: エラーコード
-          example: "AUTH_FAILED"
-      required:
-        - isSuccess
-        - message
-
   responses:
-    BadRequestError:
-      description: 不正なリクエスト
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            success: false
-            message: "リクエストパラメータが不正です"
-            errorCode: "BAD_REQUEST"
-
-    UnauthorizedError:
+    UnauthorizedErrorModel:
       description: 認証失敗
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            success: false
-            message: "ログインIDまたはパスワードが間違っています"
-            errorCode: "AUTH_FAILED"
+            $ref: "#/components/schemas/UnauthorizedErrorResponseModel"
 
-    AccountLockedError:
-      description: アカウントロック
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            success: false
-            message: "連続ログイン失敗によりアカウントがロックされています"
-            errorCode: "ACCOUNT_LOCKED"
+  schemas:
+    UnauthorizedErrorResponseModel:
+      type: object
+      properties:
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiErrorModel"
 
-    InternalServerError:
-      description: サーバーエラー
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            success: false
-            message: "サーバー内部でエラーが発生しました"
-            errorCode: "INTERNAL_SERVER_ERROR"
+    ApiErrorModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: エラーが発生したフィールド名
+          example: name
+        message:
+          type: string
+          description: エラーメッセージ
+          example: "認証に失敗しました。ログインIDまたはパスワードが正しくありません。"
+      required: [ "name", "message" ]
