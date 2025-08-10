@@ -6,6 +6,7 @@ plugins {
     id("org.flywaydb.flyway") version "10.13.0"
     id("nu.studer.jooq") version "8.2"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
     // OpenAPI Generatorを最新版に更新
     id("org.openapi.generator") version "7.8.0"
 }
@@ -107,9 +108,10 @@ flyway {
     baselineVersion = "0"
     driver = "org.postgresql.Driver"
     cleanDisabled = false
-    placeholders = mapOf(
-        "admin.firebase_uid" to (System.getenv("ADMIN_FIREBASE_UID") ?: "null")
-    )
+    placeholders =
+        mapOf(
+            "admin.firebase_uid" to (System.getenv("ADMIN_FIREBASE_UID") ?: "null")
+        )
 }
 
 allprojects {
@@ -178,6 +180,14 @@ detekt {
     buildUponDefaultConfig = true
     allRules = false
     config.setFrom(files("$projectDir/detekt/detekt.yml"))
+}
+
+ktlint {
+    android.set(false)
+    verbose.set(true)
+    filter {
+        exclude { element -> element.file.path.contains("build/") }
+    }
 }
 
 kotlin {
