@@ -108,9 +108,10 @@ flyway {
     baselineVersion = "0"
     driver = "org.postgresql.Driver"
     cleanDisabled = false
-    placeholders = mapOf(
-        "admin.firebase_uid" to (System.getenv("ADMIN_FIREBASE_UID") ?: "null")
-    )
+    placeholders =
+        mapOf(
+            "admin.firebase_uid" to (System.getenv("ADMIN_FIREBASE_UID") ?: "null")
+        )
 }
 
 allprojects {
