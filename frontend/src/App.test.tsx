@@ -1,8 +1,31 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
+import * as authHook from "./hooks/useAuth";
+import { User } from "firebase/auth";
 
 describe("App", () => {
+  beforeEach(() => {
+    // useAuthフックをモック
+    vi.spyOn(authHook, "useAuth").mockReturnValue({
+      firebaseUser: {
+        uid: "test-uid",
+        email: "sasaki@example.com",
+        displayName: "田中 太郎",
+        emailVerified: true,
+      } as User,
+      user: {
+        id: 1,
+        name: "田中 太郎",
+      },
+      loading: false,
+      error: null,
+      isAuthenticated: true,
+      login: vi.fn(),
+      logout: vi.fn(),
+    });
+  });
+
   it("renders main components correctly", () => {
     render(<App />);
 
