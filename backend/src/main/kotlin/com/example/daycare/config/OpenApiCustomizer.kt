@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class OpenApiCustomizer {
-
     @Bean
     fun customOpenAPI(): OpenAPI {
         return OpenAPI()

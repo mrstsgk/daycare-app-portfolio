@@ -2,45 +2,84 @@ name: Backend CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths:
-      - 'backend/**/*.kt'
-      - 'backend/**/*.java'
-      - 'backend/**/*.gradle'
-      - 'backend/**/*.gradle.kts'
-      - 'backend/**/*.yml'
-      - 'backend/**/*.yaml'
-      - 'backend/**/*.properties'
-      - 'backend/**/*.sql'
-      - 'backend/build.gradle.kts'
-      - 'backend/settings.gradle.kts'
-      - 'backend/gradle/**'
-      - 'backend/migration/**'
-      - 'backend/openapi/**'
-      - '.github/workflows/backend-check.yml'
+      - "backend/**/*.kt"
+      - "backend/**/*.java"
+      - "backend/**/*.gradle"
+      - "backend/**/*.gradle.kts"
+      - "backend/**/*.yml"
+      - "backend/**/*.yaml"
+      - "backend/**/*.properties"
+      - "backend/**/*.sql"
+      - "backend/build.gradle.kts"
+      - "backend/settings.gradle.kts"
+      - "backend/gradle/**"
+      - "backend/migration/**"
+      - "backend/openapi/**"
+      - ".github/workflows/backend-check.yml"
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths:
-      - 'backend/**/*.kt'
-      - 'backend/**/*.java'
-      - 'backend/**/*.gradle'
-      - 'backend/**/*.gradle.kts'
-      - 'backend/**/*.yml'
-      - 'backend/**/*.yaml'
-      - 'backend/**/*.properties'
-      - 'backend/**/*.sql'
-      - 'backend/build.gradle.kts'
-      - 'backend/settings.gradle.kts'
-      - 'backend/gradle/**'
-      - 'backend/migration/**'
-      - 'backend/openapi/**'
-      - '.github/workflows/backend-check.yml'
+      - "backend/**/*.kt"
+      - "backend/**/*.java"
+      - "backend/**/*.gradle"
+      - "backend/**/*.gradle.kts"
+      - "backend/**/*.yml"
+      - "backend/**/*.yaml"
+      - "backend/**/*.properties"
+      - "backend/**/*.sql"
+      - "backend/build.gradle.kts"
+      - "backend/settings.gradle.kts"
+      - "backend/gradle/**"
+      - "backend/migration/**"
+      - "backend/openapi/**"
+      - ".github/workflows/backend-check.yml"
 
 jobs:
-  backend:
-    name: Backend Tests
+  lint-and-format:
+    name: Lint and Format Check
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        working-directory: backend
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+        with:
+          min-wrapper-count: 1
+          allow-snapshots: false
+
+      - name: Run ktlint format
+        run: ./gradlew ktlintFormat --no-daemon
+        working-directory: backend
+
+      - name: Run ktlint check
+        run: ./gradlew ktlintCheck --no-daemon
+        working-directory: backend
+
+      - name: Run Detekt
+        run: ./gradlew detekt --no-daemon
+        working-directory: backend
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:15-alpine
@@ -95,10 +134,6 @@ jobs:
 
       - name: Generate JOOQ classes
         run: ./gradlew generateJooq --no-daemon
-        working-directory: backend
-
-      - name: Run Detekt
-        run: ./gradlew detekt --no-daemon
         working-directory: backend
 
       - name: Run tests
