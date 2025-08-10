@@ -1,0 +1,38 @@
+# Build outputs (but keep generated JOOQ sources)
+build/
+!*/build/generated-src/
+*/build/*
+!*/build/generated-src/
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Gradle
+.gradle/
+
+# Logs
+*.log
+
+# Documentation
+README.md
+*.md
+
+# Test outputs
+*/build/test-results/
+*/build/reports/
+
+# Generated files
+*/src/generated/
+*/build/generated/
