@@ -7,8 +7,8 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { auth } from "../config/firebase";
-import { authApi, UserSummaryDto } from "../api/client";
+import { auth } from "../../../config/firebase";
+import { authApi, UserSummaryDto } from "../../../api/client";
 
 // Firebase エラーかどうかを判定する型ガード
 const isFirebaseError = (error: unknown): error is AuthError => {

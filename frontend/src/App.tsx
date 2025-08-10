@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "./hooks/useAuth";
-import { LoginForm } from "./components/LoginForm";
-import Header from "./components/Header";
-import NoticeBoard from "./components/NoticeBoard";
-import Dashboard from "./components/Dashboard";
+import { useAuth } from "./features/auth/hooks/useAuth";
+import { LoginForm } from "./features/auth/components/loginForm/LoginForm";
+import Header from "./components/common/header/Header";
+import NoticeBoard from "./features/notice/components/noticeBoard/NoticeBoard";
+import Dashboard from "./features/dashboard/components/dashboard/Dashboard";
 import styles from "./App.module.scss";
 
 function App() {

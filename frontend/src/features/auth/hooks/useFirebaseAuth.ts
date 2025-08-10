@@ -6,7 +6,7 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { auth } from "../../../config/firebase";
 
 interface AuthState {
   user: User | null;
