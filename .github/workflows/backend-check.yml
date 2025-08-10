@@ -65,10 +65,6 @@ jobs:
           min-wrapper-count: 1
           allow-snapshots: false
 
-      - name: Run ktlint format
-        run: ./gradlew ktlintFormat --no-daemon
-        working-directory: backend
-
       - name: Run ktlint check
         run: ./gradlew ktlintCheck --no-daemon
         working-directory: backend
