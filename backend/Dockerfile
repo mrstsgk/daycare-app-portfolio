@@ -1,10 +1,11 @@
 FROM amazoncorretto:21 as builder
 WORKDIR /app
 COPY . .
-# OpenAPIファイルを先に生成してからビルド
-RUN ./gradlew openApiGenerate --no-daemon
-RUN ./gradlew build -x generateJooq --no-daemon
-RUN ls -lh build/libs/
+
+# Note: JOOQファイルは事前にローカルで生成済み（build/generated-src/に存在）
+# OpenAPI生成のみをスキップしてビルド時間を短縮
+# パラレル実行とビルドキャッシュで高速化
+RUN ./gradlew assemble -x generateJooq -x openApiGenerate --parallel --build-cache --no-daemon
 
 FROM amazoncorretto:21
 WORKDIR /app
