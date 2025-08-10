@@ -1,4 +1,4 @@
-# Build outputs (but keep generated JOOQ sources)
+# Build outputs (but keep generated jOOQ sources)
 build/
 !build/generated-src/jooq/main/
 *.jar
@@ -31,5 +31,5 @@ README.md
 */build/test-results/
 */build/reports/
 
-# Generated files (keep JOOQ sources)
+# Generated files (keep jOOQ sources)
 */src/generated/
