@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import * as authHook from "./hooks/useAuth";
+import * as authHook from "./features/auth/hooks/useAuth";
 import { User } from "firebase/auth";
 
 describe("App", () => {
