@@ -1,5 +1,6 @@
 # Backend
 backend/build
+!backend/build/generated-src/jooq/main/
 backend/.gradle
 backend/temp-openapi-gen
 

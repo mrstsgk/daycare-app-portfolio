@@ -1,9 +1,11 @@
+# syntax=docker/dockerfile:1.7
 FROM node:20-alpine
 WORKDIR /app
 
 # Copy package files first for better caching
 COPY package*.json ./
-RUN npm install
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --silent
 
 # Copy source files (node_modules is excluded by .dockerignore)
 COPY . .
