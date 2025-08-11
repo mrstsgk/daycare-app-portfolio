@@ -8,12 +8,21 @@
 
 ### フロントエンド
 
-- React.js + TypeScript
-- ビルドツール: Vite
-- スタイル: SCSS（CSS Modules）
-- テスト: Vitest, Testing Library
-- IDE: Cursor
-- 主なディレクトリ構成:
+| 技術              | 用途            | ITSSレベル |
+|-----------------|---------------|---------|
+| React.js        | UIライブラリ       | レベル3    |
+| TypeScript      | 型安全な開発        | レベル3    |
+| Vite            | ビルドツール・開発サーバー | レベル3    |
+| SCSS            | CSSプリプロセッサ    | レベル4    |
+| CSS Modules     | スタイルのスコープ化    | レベル3    |
+| Vitest          | テストフレームワーク    | レベル3    |
+| Testing Library | コンポーネントテスト    | レベル2    |
+| ESLint          | 静的解析          | レベル3    |
+| Prettier        | コードフォーマット     | レベル3    |
+| Cursor          | 統合開発環境        | レベル4    |
+
+#### 主なディレクトリ構成:
+
     ```
     ※ Bulletproof-React を参考にディレクトリ構成を検討
 
@@ -41,15 +50,21 @@
 
 ### バックエンド
 
-- Kotlin + Spring Boot
-- テストツール: Kotest
-- データベース: PostgreSQL
-- データベースアクセス: jOOQ
-- コンテナ化: Docker
-- docker環境構築: Colima
-- API仕様: OpenAPI 3.0
-- IDE: IntelliJ IDEA
-- 主なディレクトリ構成:
+| 技術            | 用途                 | ITSSレベル |
+|---------------|--------------------|---------|
+| Kotlin        | プログラミング言語          | レベル4    |
+| Spring Boot   | Webアプリケーションフレームワーク | レベル4    |
+| Kotest        | テストフレームワーク         | レベル4    |
+| detekt        | 静的解析               | レベル4    |
+| PostgreSQL    | リレーショナルデータベース      | レベル5    |
+| jOOQ          | データベースアクセスライブラリ    | レベル4    |
+| Docker        | コンテナ化技術            | レベル4    |
+| Colima        | Docker環境構築ツール      | レベル2    |
+| OpenAPI 3.0   | API仕様書             | レベル4    |
+| IntelliJ IDEA | 統合開発環境             | レベル4    |
+
+#### 主なディレクトリ構成:
+
     ```
     ※ オニオンアーキテクチャ を参考にディレクトリ構成を検討
 
