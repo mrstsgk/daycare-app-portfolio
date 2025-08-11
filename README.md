@@ -15,17 +15,28 @@
 - IDE: Cursor
 - 主なディレクトリ構成:
     ```
+    ※ Bulletproof-React を参考にディレクトリ構成を検討
+
     frontend/
     ├── src/
-    │   ├── components/    # UIコンポーネント群
-    │   ├── styles/        # SCSS変数・共通スタイル
-    │   ├── api/           # APIクライアント
-    │   ├── types/         # 型定義
-    │   ├── App.tsx        # ルートコンポーネント
-    │   └── index.tsx      # エントリポイント
-    ├── public/            # 静的ファイル（画像・favicon等）
-    ├── package.json       # 依存管理
-    └── ...（省略）
+    │   ├── components/          # 共通UIコンポーネント群
+    │   ├── features/            # 機能別コンポーネント群
+    │   ├── config/              # 設定ファイル
+    │   ├── api/                 # APIクライアント
+    │   ├── styles/              # スタイル定義
+    │   ├── types/               # 型定義
+    │   ├── App.tsx              # ルートコンポーネント
+    │   ├── App.module.scss      # ルートコンポーネントスタイル
+    │   ├── App.test.tsx         # ルートコンポーネントテスト
+    │   ├── index.tsx            # エントリポイント
+    │   ├── index.css            # グローバルスタイル
+    │   ├── setupTests.ts        # テスト設定
+    │   └── vite-env.d.ts        # Vite型定義
+    ├── public/                  # 静的ファイル（画像・favicon等）
+    ├── package.json             # 依存管理
+    ├── tsconfig.json            # TypeScript設定
+    ├── vite.config.ts           # Vite設定
+    └── vitest.config.ts         # Vitest設定
     ```
 
 ### バックエンド
@@ -40,6 +51,8 @@
 - IDE: IntelliJ IDEA
 - 主なディレクトリ構成:
     ```
+    ※ オニオンアーキテクチャ を参考にディレクトリ構成を検討
+
     backend/
     ├── domain/          # ドメイン層（ビジネスロジック）
     ├── usecase/         # ユースケース層（アプリケーションロジック）
