@@ -8,38 +8,71 @@
 
 ### フロントエンド
 
-- React.js + TypeScript
-- ビルドツール: Vite
-- スタイル: SCSS（CSS Modules）
-- テスト: Vitest, Testing Library
-- IDE: Cursor
-- 主なディレクトリ構成:
+| 技術              | 用途            | ITSSレベル |
+|-----------------|---------------|---------|
+| React.js        | UIライブラリ       | レベル3    |
+| TypeScript      | 型安全な開発        | レベル3    |
+| Vite            | ビルドツール・開発サーバー | レベル3    |
+| SCSS            | CSSプリプロセッサ    | レベル4    |
+| CSS Modules     | スタイルのスコープ化    | レベル3    |
+| Vitest          | テストフレームワーク    | レベル3    |
+| Testing Library | コンポーネントテスト    | レベル2    |
+| ESLint          | 静的解析          | レベル3    |
+| Prettier        | コードフォーマット     | レベル3    |
+| Cursor          | 統合開発環境        | レベル4    |
+
+#### その他ライブラリ
+
+- React Hook Form
+- Zod
+
+#### 主なディレクトリ構成:
+
     ```
+    ※Bulletproof-Reactを参考にディレクトリ構成を検討
+
     frontend/
     ├── src/
-    │   ├── components/    # UIコンポーネント群
-    │   ├── styles/        # SCSS変数・共通スタイル
-    │   ├── api/           # APIクライアント
-    │   ├── types/         # 型定義
-    │   ├── App.tsx        # ルートコンポーネント
-    │   └── index.tsx      # エントリポイント
-    ├── public/            # 静的ファイル（画像・favicon等）
-    ├── package.json       # 依存管理
-    └── ...（省略）
+    │   ├── components/          # 共通UIコンポーネント群
+    │   ├── features/            # 機能別コンポーネント群
+    │   ├── config/              # 設定ファイル
+    │   ├── api/                 # APIクライアント
+    │   ├── styles/              # スタイル定義
+    │   ├── types/               # 型定義
+    │   ├── App.tsx              # ルートコンポーネント
+    │   ├── App.module.scss      # ルートコンポーネントスタイル
+    │   ├── App.test.tsx         # ルートコンポーネントテスト
+    │   ├── index.tsx            # エントリポイント
+    │   ├── index.css            # グローバルスタイル
+    │   ├── setupTests.ts        # テスト設定
+    │   └── vite-env.d.ts        # Vite型定義
+    ├── public/                  # 静的ファイル（画像・favicon等）
+    ├── package.json             # 依存管理
+    ├── tsconfig.json            # TypeScript設定
+    ├── vite.config.ts           # Vite設定
+    └── vitest.config.ts         # Vitest設定
     ```
 
 ### バックエンド
 
-- Kotlin + Spring Boot
-- テストツール: Kotest
-- データベース: PostgreSQL
-- データベースアクセス: jOOQ
-- コンテナ化: Docker
-- docker環境構築: Colima
-- API仕様: OpenAPI 3.0
-- IDE: IntelliJ IDEA
-- 主なディレクトリ構成:
+| 技術            | 用途                 | ITSSレベル |
+|---------------|--------------------|---------|
+| Kotlin        | プログラミング言語          | レベル4    |
+| Spring Boot   | Webアプリケーションフレームワーク | レベル4    |
+| Kotest        | テストフレームワーク         | レベル4    |
+| detekt        | 静的解析               | レベル4    |
+| PostgreSQL    | リレーショナルデータベース      | レベル5    |
+| jOOQ          | データベースアクセスライブラリ    | レベル4    |
+| Docker        | コンテナ化技術            | レベル4    |
+| Colima        | Docker環境構築ツール      | レベル2    |
+| OpenAPI 3.0   | API仕様書             | レベル4    |
+| IntelliJ IDEA | 統合開発環境             | レベル4    |
+
+#### 主なディレクトリ構成:
+
     ```
+    ※オニオンアーキテクチャを参考にディレクトリ構成を検討
+
     backend/
     ├── domain/          # ドメイン層（ビジネスロジック）
     ├── usecase/         # ユースケース層（アプリケーションロジック）
