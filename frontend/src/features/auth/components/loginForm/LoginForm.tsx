@@ -1,11 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, LoginFormData } from "../../schemas/loginSchema";
 import styles from "./LoginForm.module.scss";
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => Promise<void>;
@@ -22,7 +19,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginFormData>({ mode: "onChange" });
+  } = useForm<LoginFormData>({
+    mode: "onChange",
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit = async (data: LoginFormData) => {
     await onLogin(data.email, data.password);
@@ -41,13 +41,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <input
             type="email"
             id="email"
-            {...register("email", {
-              required: "メールアドレスは必須です",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "有効なメールアドレスを入力してください",
-              },
-            })}
+            {...register("email")}
             placeholder="メールアドレスを入力してください"
             disabled={loading}
           />
@@ -61,14 +55,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <input
             type="password"
             id="password"
-            {...register("password", {
-              required: "パスワードは必須です",
-              minLength: {
-                value: 6,
-                message: "パスワードは6文字以上で入力してください",
-              },
-            })}
-            placeholder="パスワードを入力してくだしてくだい"
+            {...register("password")}
+            placeholder="パスワードを入力してください"
             disabled={loading}
           />
           {errors.password && (
