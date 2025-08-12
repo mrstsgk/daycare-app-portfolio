@@ -52,6 +52,13 @@ openApiGenerate {
     configOptions.put("serializableModel", "false")
     // カスタムテンプレートディレクトリを指定
     templateDir.set("$projectDir/openapi-templates")
+    // 型マッピングを設定してkotlin.プレフィックスを除去
+    typeMappings.put("integer", "Int")
+    typeMappings.put("string", "String") 
+    typeMappings.put("boolean", "Boolean")
+    typeMappings.put("long", "Long")
+    typeMappings.put("double", "Double")
+    typeMappings.put("float", "Float")
     // 特定のファイルのみ生成対象から除外
     globalProperties.put("models", "")
     globalProperties.put("apis", "false")
