@@ -18,11 +18,13 @@ import jakarta.validation.Valid
  */
 data class ApiErrorModel(
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("name") val name: kotlin.String,
+    @get:JsonProperty("name") val name: String,
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("message") val message: kotlin.String
+    @get:JsonProperty("message") val message: String
     ) {
 
 }

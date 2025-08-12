@@ -19,14 +19,17 @@ import jakarta.validation.Valid
  */
 data class ClassRoomModel(
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("id") val id: kotlin.Int,
+    @get:JsonProperty("id") val id: Int,
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("name") val name: kotlin.String,
+    @get:JsonProperty("name") val name: String,
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("capacity") val capacity: kotlin.Int
+    @get:JsonProperty("capacity") val capacity: Int
     ) {
 
 }

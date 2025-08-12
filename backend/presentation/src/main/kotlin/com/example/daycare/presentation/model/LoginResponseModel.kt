@@ -20,11 +20,13 @@ import jakarta.validation.Valid
  */
 data class LoginResponseModel(
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("success") val success: kotlin.Boolean,
+    @get:JsonProperty("success") val success: Boolean,
 
+    @field:Valid
     @field:NotNull
-    @get:JsonProperty("message") val message: kotlin.String,
+    @get:JsonProperty("message") val message: String,
 
     @field:Valid
     @get:JsonProperty("user") val user: UserSummaryModel? = null

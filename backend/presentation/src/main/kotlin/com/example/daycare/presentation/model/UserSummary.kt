@@ -19,10 +19,10 @@ import jakarta.validation.Valid
 data class UserSummary(
 
     @field:NotNull
-    @get:JsonProperty("id") val id: kotlin.Int,
+    @get:JsonProperty("id") val id: Int,
 
     @field:NotNull
-    @get:JsonProperty("name") val name: kotlin.String
+    @get:JsonProperty("name") val name: String
     ) {
 
 }

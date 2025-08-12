@@ -17,9 +17,10 @@ import jakarta.validation.Valid
  */
 data class LoginRequestModel(
 
+    @field:Valid
     @get:Size(min=10,max=255)
     @field:NotNull
-    @get:JsonProperty("localId") val localId: kotlin.String
+    @get:JsonProperty("localId") val localId: String
     ) {
 
 }

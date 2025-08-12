@@ -1,6 +1,7 @@
 package com.example.daycare.presentation.model
 
 import com.example.daycare.presentation.model.ClassRoomModel
+import com.example.daycare.presentation.model.List
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -20,7 +21,7 @@ data class ClassRoomListResponseModel(
 
     @field:Valid
     @field:NotNull
-    @get:JsonProperty("classRooms") val classRooms: kotlin.collections.List<ClassRoomModel>
+    @get:JsonProperty("classRooms") val classRooms: List<ClassRoomModel>
     ) {
 
 }
