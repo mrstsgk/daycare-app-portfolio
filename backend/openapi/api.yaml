@@ -32,6 +32,23 @@ paths:
         "401":
           $ref: "error.yaml#/components/responses/UnauthorizedErrorModel"
 
+  /api/class_room:
+    get:
+      summary: クラス情報一覧を取得する
+      description: 全てのクラス情報の一覧を取得します
+      operationId: findClassRoomList
+      tags:
+        - ClassRoom
+      responses:
+        "200":
+          description: クラス情報一覧取得成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClassRoomListResponseModel"
+        "400":
+          $ref: "error.yaml#/components/responses/BadRequestErrorModel"
+
 components:
   schemas:
     LoginRequestModel:
@@ -64,3 +81,36 @@ components:
       required:
         - success
         - message
+
+    ClassRoomListResponseModel:
+      type: object
+      description: クラス情報一覧取得レスポンス
+      properties:
+        classRooms:
+          type: array
+          description: クラス情報の配列
+          items:
+            $ref: "#/components/schemas/ClassRoomModel"
+      required:
+        - classRooms
+
+    ClassRoomModel:
+      type: object
+      description: クラス情報
+      properties:
+        id:
+          type: integer
+          description: クラスID
+          example: 1
+        name:
+          type: string
+          description: クラス名
+          example: "年長組"
+        capacity:
+          type: integer
+          description: 定員
+          example: 20
+      required:
+        - id
+        - name
+        - capacity

@@ -6,6 +6,13 @@ info:
 
 components:
   responses:
+    BadRequestErrorModel:
+      description: リクエストが不正
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BadRequestErrorResponseModel"
+
     UnauthorizedErrorModel:
       description: 認証失敗
       content:
@@ -14,6 +21,14 @@ components:
             $ref: "#/components/schemas/UnauthorizedErrorResponseModel"
 
   schemas:
+    BadRequestErrorResponseModel:
+      type: object
+      properties:
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiErrorModel"
+
     UnauthorizedErrorResponseModel:
       type: object
       properties:
@@ -32,5 +47,5 @@ components:
         message:
           type: string
           description: エラーメッセージ
-          example: "認証に失敗しました。ログインIDまたはパスワードが正しくありません。"
+          example: "エラーが発生しました。"
       required: [ "name", "message" ]
