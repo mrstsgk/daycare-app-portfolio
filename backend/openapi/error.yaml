@@ -23,6 +23,7 @@ components:
   schemas:
     BadRequestErrorResponseModel:
       type: object
+      description: リクエストが不正な場合のエラーレスポンス
       properties:
         error:
           type: array
@@ -31,6 +32,7 @@ components:
 
     UnauthorizedErrorResponseModel:
       type: object
+      description: 認証に失敗した場合のエラーレスポンス
       properties:
         error:
           type: array
