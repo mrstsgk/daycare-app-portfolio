@@ -1,7 +1,6 @@
 package com.example.daycare.presentation.model
 
 import com.example.daycare.presentation.model.ApiErrorModel
-import com.example.daycare.presentation.model.List
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
