@@ -40,6 +40,9 @@ jobs:
   lint-and-format:
     name: Lint and Format Check
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,7 +60,6 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        working-directory: backend
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -67,15 +69,16 @@ jobs:
 
       - name: Run ktlint check
         run: ./gradlew ktlintCheck --no-daemon
-        working-directory: backend
 
       - name: Run Detekt
         run: ./gradlew detekt --no-daemon
-        working-directory: backend
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     services:
       postgres:
         image: postgres:15-alpine
@@ -108,7 +111,6 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        working-directory: backend
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -122,16 +124,12 @@ jobs:
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
-        working-directory: backend
 
       - name: Run database migrations
         run: ./gradlew flywayMigrate --no-daemon
-        working-directory: backend
 
       - name: Generate JOOQ classes
         run: ./gradlew generateJooq --no-daemon
-        working-directory: backend
 
       - name: Run tests
         run: ./gradlew test --no-daemon
-        working-directory: backend

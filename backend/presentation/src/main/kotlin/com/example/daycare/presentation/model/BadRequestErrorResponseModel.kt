@@ -1,6 +1,6 @@
 package com.example.daycare.presentation.model
 
-import com.example.daycare.presentation.model.UserSummaryModel
+import com.example.daycare.presentation.model.ApiErrorModel
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -13,23 +13,13 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * Firebase認証ログインレスポンス
- * @param success ログイン成功フラグ
- * @param message メッセージ
- * @param user 
+ * リクエストが不正な場合のエラーレスポンス
+ * @param error 
  */
-data class LoginResponseModel(
+data class BadRequestErrorResponseModel(
 
     @field:Valid
-    @field:NotNull
-    @get:JsonProperty("success") val success: Boolean,
-
-    @field:Valid
-    @field:NotNull
-    @get:JsonProperty("message") val message: String,
-
-    @field:Valid
-    @get:JsonProperty("user") val user: UserSummaryModel? = null
+    @get:JsonProperty("error") val error: List<ApiErrorModel>? = null
     ) {
 
 }

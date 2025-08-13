@@ -52,6 +52,43 @@ openApiGenerate {
     configOptions.put("serializableModel", "false")
     // カスタムテンプレートディレクトリを指定
     templateDir.set("$projectDir/openapi-templates")
+    // 型マッピングを設定してkotlin.プレフィックスを除去
+    typeMappings.put(
+        "integer",
+        "Int"
+    )
+    typeMappings.put(
+        "string",
+        "String"
+    )
+    typeMappings.put(
+        "boolean",
+        "Boolean"
+    )
+    typeMappings.put(
+        "long",
+        "Long"
+    )
+    typeMappings.put(
+        "double",
+        "Double"
+    )
+    typeMappings.put(
+        "float",
+        "Float"
+    )
+    typeMappings.put(
+        "array",
+        "List"
+    )
+    typeMappings.put(
+        "list",
+        "List"
+    )
+    typeMappings.put(
+        "kotlin.collections.List",
+        "List"
+    )
     // 特定のファイルのみ生成対象から除外
     globalProperties.put("models", "")
     globalProperties.put("apis", "false")
@@ -93,9 +130,30 @@ tasks.register("addNotNullAnnotations") {
     }
 }
 
+// 不要なimport文を削除するタスク
+tasks.register("cleanupImports") {
+    dependsOn("addNotNullAnnotations")
+    doLast {
+        fileTree("$projectDir/presentation/src/main/kotlin").matching {
+            include("**/*.kt")
+        }.forEach { file ->
+            val content = file.readText()
+            val cleanedContent =
+                content
+                    .replace("import com.example.daycare.presentation.model.Int\n", "")
+                    .replace("import com.example.daycare.presentation.model.String\n", "")
+                    .replace("import com.example.daycare.presentation.model.Boolean\n", "")
+                    .replace("import com.example.daycare.presentation.model.Long\n", "")
+                    .replace("import com.example.daycare.presentation.model.Double\n", "")
+                    .replace("import com.example.daycare.presentation.model.Float\n", "")
+            file.writeText(cleanedContent)
+        }
+    }
+}
+
 // openApiGenerateの後に自動実行
 tasks.named("openApiGenerate") {
-    finalizedBy("addNotNullAnnotations")
+    finalizedBy("cleanupImports")
 }
 
 // Flyway設定を更新

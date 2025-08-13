@@ -13,13 +13,13 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * 
+ * 認証に失敗した場合のエラーレスポンス
  * @param error 
  */
 data class UnauthorizedErrorResponseModel(
 
     @field:Valid
-    @get:JsonProperty("error") val error: kotlin.collections.List<ApiErrorModel>? = null
+    @get:JsonProperty("error") val error: List<ApiErrorModel>? = null
     ) {
 
 }
