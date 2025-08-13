@@ -138,13 +138,14 @@ tasks.register("cleanupImports") {
             include("**/*.kt")
         }.forEach { file ->
             val content = file.readText()
-            val cleanedContent = content
-                .replace("import com.example.daycare.presentation.model.Int\n", "")
-                .replace("import com.example.daycare.presentation.model.String\n", "")
-                .replace("import com.example.daycare.presentation.model.Boolean\n", "")
-                .replace("import com.example.daycare.presentation.model.Long\n", "")
-                .replace("import com.example.daycare.presentation.model.Double\n", "")
-                .replace("import com.example.daycare.presentation.model.Float\n", "")
+            val cleanedContent =
+                content
+                    .replace("import com.example.daycare.presentation.model.Int\n", "")
+                    .replace("import com.example.daycare.presentation.model.String\n", "")
+                    .replace("import com.example.daycare.presentation.model.Boolean\n", "")
+                    .replace("import com.example.daycare.presentation.model.Long\n", "")
+                    .replace("import com.example.daycare.presentation.model.Double\n", "")
+                    .replace("import com.example.daycare.presentation.model.Float\n", "")
             file.writeText(cleanedContent)
         }
     }
